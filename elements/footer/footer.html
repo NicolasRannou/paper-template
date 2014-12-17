@@ -1,0 +1,65 @@
+<polymer-element name="footer-element" attributes="previous next narrow">
+<template>
+  <link rel="stylesheet" href="footer.css"> 
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <div class='footer' horizontal layout>
+    <a id='previous' class='nav fluid' href="" style="position:relative;">
+    <div class='fluid previousLayout' layout horizontal>
+        <div class="previousIcon">
+          <i class="fa fa-angle-left" style=''></i>
+        </div>
+        <div class='fluid previousText'>
+          <div class='hint'>Previous</div>
+          <div class='label'>prev</div>
+        </div>
+      </div>
+
+      <paper-ripple class="recenteringTouch" fit=""></paper-ripple>
+
+    </a>
+    <a id='next' class='nav fluid' href="" style="position:relative;">
+      <div class='fluid nextLayout' layout horizontal>
+        <div class='fluid nextText'>
+          <div class='hint'>Next</div>
+          <div class='label'>prev</div>
+        </div>
+        <div>
+          <i class="fa fa-angle-right nextIcon"></i>
+        </div>
+      </div>
+
+      <paper-ripple class="recenteringTouch" fit=""></paper-ripple>
+
+    </a>
+  </div>
+
+</template>
+
+<script>
+  Polymer('footer-element', {
+    previousChanged: function(){
+      this.$.previous.style.backgroundColor = this.previous.color;
+      this.$.previous.href = this.previous.target;
+      this.$.previous.getElementsByClassName('label')[0].innerHTML = this.previous.label;
+    },
+    nextChanged: function(){
+      this.$.next.style.backgroundColor = this.next.color;
+      this.$.next.href = this.next.target;
+      this.$.next.getElementsByClassName('label')[0].innerHTML = this.next.label;
+    },
+    narrowChanged: function(){
+      if(this.narrow){
+        this.$.previous.getElementsByClassName('previousLayout')[0].classList.add('narrow');
+        this.$.next.getElementsByClassName('nextLayout')[0].classList.add('narrow');
+//this.$.previousContainer.addClass();
+      }
+      else{
+        this.$.previous.getElementsByClassName('previousLayout')[0].classList.remove('narrow');
+        this.$.next.getElementsByClassName('nextLayout')[0].classList.remove('narrow');
+//this.$.previousContainer.removeClass();
+      }
+    }
+  });
+</script>
+</polymer-element>
