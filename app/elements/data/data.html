@@ -1,0 +1,326 @@
+<link rel="import" href="../page/page.html">
+<link rel="import" href="../people/people.html">
+
+<link rel="import" href="../../lib-elements/paper-button/paper-button.html">
+<link rel="import" href="../../lib-elements/paper-dialog/paper-dialog-transition.html">
+<link rel="import" href="../../lib-elements/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../lib-elements/core-selector/core-selector.html">
+<link rel="import" href="../../lib-elements/paper-tabs/paper-tabs.html">
+
+<polymer-element name="data-element" extends="page-element">
+  <template>
+
+    <link rel="stylesheet" href="data.css">
+
+    <!-- Page Title -->
+    <div class='pageTitle'>
+      <div class="container">
+        <div id="jumbo" class=" jumbotron" >
+          <template if="{{(research == null) && (cache == null)}}">
+            <span class="spinner"><img src="../../images/spinner.gif"></span>
+          </template>
+          <span class="small">We are</span>
+          <span class="large">the research infrastructure team</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="navnavContainer">
+         <div id="navnav">
+        <div>
+          <div class='container'>
+            <ul class='navbar-nav nav'>
+              <template if="{{structure != null}}">
+                <template repeat="{{section in structure}}">
+                  <li on-tap="{{gotoSection}}" class='nav-element'>
+                    <a id='{{name}}-nav-{{section.index}}' data-section='{{section.index}}'>{{section.label}}</a>
+                  </li>
+                </template>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper Dialog -->
+    <paper-dialog heading="More about" transition="paper-dialog-transition-center" tabindex="-1" class="{{people.gsx$lastname.$t}} paper-dialog-transition paper-dialog-transition-center" style="z-index: 2000; position: fixed; display: none;">
+      <content>
+
+        <paper-tabs selected="0" class="transparent-teal" noink>
+          <paper-tab>BIOGRAPHY</paper-tab>
+          <paper-tab>PUBLICATION</paper-tab>
+          <paper-tab>AWARDS</paper-tab>
+        </paper-tabs>
+
+        <div id="biography"></div>
+        <div id="papers"></div>
+        <div id="awards"></div>
+
+      </content>
+
+      <paper-button label="Close" affirmative default></paper-button>
+
+    </paper-dialog>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-md-12 col-lg-12">
+          <div class="fBox">
+            <section id="mission" class="element">
+	    <div class="row card">
+                <div class="title">Our mission</div>
+		<div id='p1' class='missionP'></div>
+		<div id='p2' class='missionP'></div>
+		<div id='p3' class='missionP'></div>
+	    </div>
+	    </section>
+
+            <section id="members" class="element">
+
+              <div class="row card">
+
+		      <div class="title">Members</div>
+                
+		      <div class='subsection'>Boston Children's Hospital</div>
+		      <div class='row'>
+		      <template if="{{data != null}}">
+		      <template repeat="{{people in data.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'member'}}">
+		      <template if="{{people.gsx$group.$t === 'bch'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}"></card-element>
+		      </template>
+		      </template>
+		      </template>
+		      </template>
+	              </div>
+	   
+		      <div class='subsection'>South Shore Hospital</div>
+		      <div class='row'>
+		      <template if="{{data != null}}">
+		      <template repeat="{{people in data.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'member'}}">
+		      <template if="{{people.gsx$group.$t === 'ssh'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}"></card-element>
+		      </template>
+		      </template>
+		      </template>
+                      </template>
+	              </div>
+	   
+		      <div class='subsection'>St. Elizabeth's Medical Center</div>
+		      <div class='row'>
+		      <template if="{{data != null}}">
+		      <template repeat="{{people in data.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'member'}}">
+		      <template if="{{people.gsx$group.$t === 'semc'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}"></card-element>
+		      </template>
+		      </template>
+		      </template>
+                      </template>
+	              </div>
+	   
+		      <div class='subsection'>Beverly Hospital</div>
+		      <div class='row'>
+		      <template if="{{data != null}}">
+		      <template repeat="{{people in data.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'member'}}">
+		      <template if="{{people.gsx$group.$t === 'bh'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}"></card-element>
+		      </template>
+		      </template>
+		      </template>
+                      </template>
+	              </div>
+	   
+		      <div class='subsection'>Winchester Hospital</div>
+		      <div class='row'>
+		      <template if="{{data != null}}">
+		      <template repeat="{{people in data.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'member'}}">
+		      <template if="{{people.gsx$group.$t === 'wh'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}"></card-element>
+		      </template>
+		      </template>
+		      </template>
+                      </template>
+	              </div>
+	   
+		      <div class='subsection'>Holy Family/Good Sam</div>
+		      <div class='row'>
+		      <template if="{{data != null}}">
+		      <template repeat="{{people in data.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'member'}}">
+		      <template if="{{people.gsx$group.$t === 'hf'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}"></card-element>
+		      </template>
+		      </template>
+		      </template>
+                      </template>
+	              </div>
+	   
+	      </div>
+  
+	      </section>
+
+	    <section id="schedule" class="element">
+
+	    <section id="schedule" class="element">
+	    <div class="row card">
+                <div class="title">Schedule</div>
+   <div id='calendar'></div>
+	</div>
+	    </section>
+	    
+	    <section id="contact" class="element">
+	    <div class="row card">
+                <div class="title">Contact</div>
+		<div>More information <a href='../../../#contact-element'>here</a></div>
+	    </div>
+	    </section>
+
+    </div>
+        </div>
+
+      </div>
+    </div>
+
+    <template if="{{cache == null && attached == 1 }}">
+      <polymer-jsonp auto url="https://spreadsheets.google.com/feeds/list/{{spreadsheet}}/od6/public/values?alt=json-in-script&callback=" response="{{data}}"></polymer-jsonp>
+    </template>
+
+  </template>
+  <script>
+    Polymer('data-element', {
+      name: 'data',
+      spreadsheet: '1LqOvb-K92KIy6e8WtJaRxzQZCixbHChga-DLdWje5bY',
+      cdn: 'https://googledrive.com/host/0B5vN-2WhAQb9WEl0Qko0SDEyR2c/',
+      data: null,
+      attached: function(){
+        this.super();
+        if(this.cache != null){
+          this.data = this.cache;
+        }
+
+        var tabs = this.shadowRoot.querySelector('paper-tabs');
+
+        if(tabs.selected == 0){
+          this.$.papers.style.display="none";
+          this.$.awards.style.display="none";
+          this.$.biography.style.display="block";
+        }
+        else if(tabs.selected == 1){
+          this.$.awards.style.display="none";
+          this.$.biography.style.display="none";
+          this.$.papers.style.display="block";
+        }
+        else{
+          this.$.papers.style.display="none";
+          this.$.biography.style.display="none";
+          this.$.awards.style.display="block";
+        }
+
+        var self = this;
+        tabs.addEventListener('core-select', function() {
+
+          if(tabs.selected == 0){
+            self.$.papers.style.display="none";
+            self.$.awards.style.display="none";
+            self.$.biography.style.display="block";
+          }
+          else if(tabs.selected == 1){
+            self.$.awards.style.display="none";
+            self.$.biography.style.display="none";
+            self.$.papers.style.display="block";
+          }
+          else{
+            self.$.papers.style.display="none";
+            self.$.biography.style.display="none";
+            self.$.awards.style.display="block";
+          }
+
+        });
+
+        this.attached = 1;
+      },
+      peopleLoadedChanged: function(){
+        this.refresh();
+        this.updateNavigation();
+      },
+      peopleSelectedChanged: function(){
+        // update content of dialog
+        if(this.peopleSelected != null){
+          this.$.biography.innerHTML = this.peopleSelected.gsx$bio.$t;
+          this.$.papers.innerHTML = this.peopleSelected.gsx$publications.$t;
+          this.$.awards.innerHTML = this.peopleSelected.gsx$awards.$t;
+
+          var dialog = this.shadowRoot.querySelector('paper-dialog');
+          dialog.shadowRoot.querySelector('#main h1').innerHTML = this.peopleSelected.gsx$firstname.$t + ' ' + this.peopleSelected.gsx$middlename.$t + ' ' + this.peopleSelected.gsx$lastname.$t;
+          dialog.toggle();
+
+          this.peopleSelected = null;
+        }
+
+      },
+      dataChanged: function(){
+        if(this.data){
+          
+          for(var i = 0; i < this.data.feed.entry.length; i++){
+
+            
+            if(this.data.feed.entry[i].gsx$section.$t == 'schedule'){
+              this.$.calendar.innerHTML = this.data.feed.entry[i].gsx$group.$t;
+	    } 
+
+	    if(this.data.feed.entry[i].gsx$section.$t == 'mission'){
+	      this.$[this.data.feed.entry[i].gsx$group.$t].innerHTML = this.data.feed.entry[i].gsx$hospital.$t;
+	    } 
+
+	    // handle members
+	    if(this.data.feed.entry[i].gsx$section.$t == 'member'){	   
+
+	    // generate title if no title
+            if(!this.data.feed.entry[i].gsx$title){
+              this.data.feed.entry[i].gsx$title = {$t:''};
+              this.data.feed.entry[i].gsx$title.$t = this.data.feed.entry[i].gsx$firstname.$t + ' ' + this.data.feed.entry[i].gsx$middlename.$t + ' ' + this.data.feed.entry[i].gsx$lastname.$t;
+              if(this.data.feed.entry[i].gsx$suffix.$t != ''){
+                this.data.feed.entry[i].gsx$title.$t += ', ' + this.data.feed.entry[i].gsx$suffix.$t;
+              }
+            }
+
+            // generate picture if no
+            if(!this.data.feed.entry[i].gsx$picture){
+              this.data.feed.entry[i].gsx$picture = {$t:''};
+              this.data.feed.entry[i].gsx$picture.$t = this.cdn +this.data.feed.entry[i].gsx$picturename.$t;
+            }
+
+            // generate text for the lines
+            if(!this.data.feed.entry[i].gsx$l1){
+              this.data.feed.entry[i].gsx$l1 = {$t:''};
+              this.data.feed.entry[i].gsx$l1.$t = this.data.feed.entry[i].gsx$hospitaltitle.$t;
+            }
+            if(!this.data.feed.entry[i].gsx$l2){
+              this.data.feed.entry[i].gsx$l2 = {$t:''};
+              this.data.feed.entry[i].gsx$l2.$t = this.data.feed.entry[i].gsx$academictitle.$t;
+            }
+            if(!this.data.feed.entry[i].gsx$l3){
+              this.data.feed.entry[i].gsx$l3 = {$t:''};
+              this.data.feed.entry[i].gsx$l3.$t = this.data.feed.entry[i].gsx$department.$t;
+             }
+            if(!this.data.feed.entry[i].gsx$l4){
+              this.data.feed.entry[i].gsx$l4 = {$t:''};
+              this.data.feed.entry[i].gsx$l4.$t = this.data.feed.entry[i].gsx$hospital.$t;
+             }
+          }
+
+
+          }
+          // cache it
+          this.cache = this.data;
+        }
+      }
+    });
+
+  </script>
+</polymer-element>

@@ -1,0 +1,195 @@
+@import '../../styles/main.scss';
+@import '../page/page.scss';
+
+paper-tabs, core-toolbar {
+  background-color: #00bcd4;
+  color: #fff;
+  @include vendor-prefix("box-shadow", "0px 3px 2px rgba(0, 0, 0, 0.2)");
+}
+
+core-toolbar paper-tabs {
+  box-shadow: none;
+}
+
+paper-dialog content div{
+  padding-top:15px;
+  padding-bottom:5px;
+}
+
+paper-tabs[noink][nobar] paper-tab.core-selected {
+  color: #ffff8d;
+}
+
+paper-tabs.transparent-teal {
+  background-color: transparent;
+  color: #00bcd4;
+  @include vendor-prefix("box-shadow", "none");
+}
+
+paper-tabs.transparent-teal::shadow #selectionBar {
+  background-color: #00bcd4;
+}
+
+paper-tabs.transparent-teal paper-tab::shadow #ink {
+  color: #00bcd4;
+}
+
+.label {
+  text-align: left;
+  color: #bbb;
+  font-size: 12px;
+  margin-top: 2em;
+}
+
+@media (min-width: 1000px){
+  paper-dialog{
+    width:50%;
+    min-width:430px;
+    @include transform(translate3d(0,0,0));
+  }
+}
+
+@media (max-width: 999px){
+  paper-dialog{
+    left:0;
+    min-width: calc(100% - 40px);
+    margin-left:20px;
+    @include transform(translate3d(0,0,0));
+  }
+}
+
+$mission-color: #3f51b5;
+#mission .card{
+  border-left: 5px solid $mission-color;
+}
+
+$members-color: #259b24;
+#members .card{
+  border-left: 5px solid $members-color;
+}
+
+$schedule-color: #ffc107;
+#schedule .card{
+  border-left: 5px solid $schedule-color;
+}
+
+$contact-color: #e51c23;
+#contact .card{
+  border-left: 5px solid $contact-color;
+}
+
+/* Buzz Out */
+@-webkit-keyframes buzz-out {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  80% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+
+@keyframes buzz-out {
+  10% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  20% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  30% {
+    -webkit-transform: translateX(3px) rotate(2deg);
+    transform: translateX(3px) rotate(2deg);
+  }
+
+  40% {
+    -webkit-transform: translateX(-3px) rotate(-2deg);
+    transform: translateX(-3px) rotate(-2deg);
+  }
+
+  50% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  60% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  70% {
+    -webkit-transform: translateX(2px) rotate(1deg);
+    transform: translateX(2px) rotate(1deg);
+  }
+
+  80% {
+    -webkit-transform: translateX(-2px) rotate(-1deg);
+    transform: translateX(-2px) rotate(-1deg);
+  }
+
+  90% {
+    -webkit-transform: translateX(1px) rotate(0);
+    transform: translateX(1px) rotate(0);
+  }
+
+  100% {
+    -webkit-transform: translateX(-1px) rotate(0);
+    transform: translateX(-1px) rotate(0);
+  }
+}
+
+paper-button:hover, paper-button:focus, paper-button:active {
+  -webkit-animation-name: buzz-out;
+  animation-name: buzz-out;
+  -webkit-animation-duration: 0.75s;
+  animation-duration: 0.75s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}

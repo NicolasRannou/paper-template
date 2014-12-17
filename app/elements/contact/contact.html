@@ -1,0 +1,231 @@
+<link rel="import" href="../page/page.html">
+
+<polymer-element name="contact-element" extends="page-element">
+  <template>
+      <link rel="stylesheet" href="contact.css">
+
+      <div class='pageTitle'>
+      <div class="container">
+        <div id="jumbo" class=" jumbotron" >
+            <template if="{{(research == null) && (cache == null)}}">
+              <span class="spinner"><img src="../../images/spinner.gif"></span>
+            </template>
+            <span class="small">We have offices in 6 different </span>
+            <span class="large">locations</span>
+      </div>
+      </div>
+      </div>
+
+      <div id="navnavContainer">
+           <div id="navnav">
+          <div>
+            <div class='container'>
+              <ul class='navbar-nav nav'>
+                <template if="{{structure != null}}">
+                  <template repeat="{{section in structure}}">
+                    <li on-tap="{{gotoSection}}" class='nav-element'>
+                      <a id='{{name}}-nav-{{section.index}}' data-section='{{section.index}}'>{{section.label}}</a>
+                    </li>
+                  </template>
+                </template>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+      <div class="">
+        <div class="col-md-12 col-lg-12">
+        <div class="fBox">
+        
+	<section id='contact' class="element">
+          <div class='row card'>
+
+		  <div class="title">Contacts</div>
+		  <div id="ashley" class='info address'>
+		    <div id='ashley-name'></div>
+		    <div id='ashley-phone' class='icon phone'></div>
+		    <div id='ashley-email' class='icon fax'></div>
+		  </div>
+		  <div id="sarah" class='info address'>
+		    <div id='sarah-name'></div>
+		    <div id='sarah-phone' class='icon phone'></div>
+		    <div id='sarah-email' class='icon fax'></div>
+		  </div>
+	</section>
+
+	<section id="locations" class="element">
+
+          <div class='row card'>
+
+            <div class="title">Locations</div>
+
+            <div class='subsection'>Boston Children's Hospital</div>
+            <template if="{{contact != null}}">
+              <template repeat="{{location in contact.feed.entry}}">
+                <template if="{{location.gsx$location.$t === 'bch'}}">
+                  <div class="info">
+
+                    <div class='address'>
+                      <div>{{location.gsx$name.$t}}</div>
+                      <div>{{location.gsx$address.$t}}</div>
+                      <div>{{location.gsx$city.$t}}, {{location.gsx$state.$t}} {{location.gsx$zip.$t}}</div>
+                    </div>
+
+                   </div>
+                </template>
+              </template>
+            </template>
+            <div class="map">
+              <div id="bch-map"></div>
+            </div>
+
+            <div class='subsection'>South Shore Hospital Hospital</div>
+            <template if="{{contact != null}}">
+              <template repeat="{{location in contact.feed.entry}}">
+                <template if="{{location.gsx$location.$t === 'ssh'}}">
+                  <div class="info">
+
+                    <div class='address'>
+                      <div>{{location.gsx$name.$t}}</div>
+                      <div>{{location.gsx$address.$t}}</div>
+                      <div>{{location.gsx$city.$t}}, {{location.gsx$state.$t}} {{location.gsx$zip.$t}}</div>
+                    </div>
+
+                   </div>
+                </template>
+              </template>
+            </template>
+            <div class="map">
+              <div id="ssh-map"></div>
+            </div>
+
+            <div class='subsection'>St. Elizabeth's Medical Center</div>
+            <template if="{{contact != null}}">
+              <template repeat="{{location in contact.feed.entry}}">
+                <template if="{{location.gsx$location.$t === 'semc'}}">
+                  <div class="info">
+
+                    <div class='address'>
+                      <div>{{location.gsx$name.$t}}</div>
+                      <div>{{location.gsx$address.$t}}</div>
+                      <div>{{location.gsx$city.$t}}, {{location.gsx$state.$t}} {{location.gsx$zip.$t}}</div>
+                    </div>
+
+                   </div>
+                </template>
+              </template>
+            </template>
+            <div class="map">
+              <div id="semc-map"></div>
+            </div>
+
+            <div class='subsection'>Beverly Hospital</div>
+            <template if="{{contact != null}}">
+              <template repeat="{{location in contact.feed.entry}}">
+                <template if="{{location.gsx$location.$t === 'bh'}}">
+                  <div class="info">
+
+                    <div class='address'>
+                      <div>{{location.gsx$name.$t}}</div>
+                      <div>{{location.gsx$address.$t}}</div>
+                      <div>{{location.gsx$city.$t}}, {{location.gsx$state.$t}} {{location.gsx$zip.$t}}</div>
+                    </div>
+
+                   </div>
+                </template>
+              </template>
+            </template>
+            <div class="map">
+              <div id="bh-map"></div>
+            </div>
+
+            <div class='subsection'>Winchester Hospital</div>
+            <template if="{{contact != null}}">
+              <template repeat="{{location in contact.feed.entry}}">
+                <template if="{{location.gsx$location.$t === 'wh'}}">
+                  <div class="info">
+
+                    <div class='address'>
+                      <div>{{location.gsx$name.$t}}</div>
+                      <div>{{location.gsx$address.$t}}</div>
+                      <div>{{location.gsx$city.$t}}, {{location.gsx$state.$t}} {{location.gsx$zip.$t}}</div>
+                    </div>
+
+                   </div>
+                </template>
+              </template>
+            </template>
+            <div class="map">
+              <div id="wh-map"></div>
+            </div>
+
+	    <div class='subsection'>Holy Family/Good Sam</div>
+            <template if="{{contact != null}}">
+              <template repeat="{{location in contact.feed.entry}}">
+                <template if="{{location.gsx$location.$t === 'hf'}}">
+                  <div class="info">
+
+                    <div class='address'>
+                      <div>{{location.gsx$name.$t}}</div>
+                      <div>{{location.gsx$address.$t}}</div>
+                      <div>{{location.gsx$city.$t}}, {{location.gsx$state.$t}} {{location.gsx$zip.$t}}</div>
+                    </div>
+
+                   </div>
+                </template>
+              </template>
+            </template>
+            <div class="map">
+              <div id="hf-map"></div>
+            </div>
+
+        </div>
+        </section>
+
+    </div>
+    </div>
+
+    </div>
+    </div>
+  <template if="{{cache == null && attached == 1 }}">
+  <polymer-jsonp auto url="https://spreadsheets.google.com/feeds/list/{{spreadsheet}}/od6/public/values?alt=json-in-script&callback=" response="{{contact}}"></polymer-jsonp>
+</template>
+
+  </template>
+  <script>
+    Polymer('contact-element', {
+      name: 'contact',
+      spreadsheet: '1HuCpeBdmzabDePu9OJ-M11OqE-_cPCpk50gMJC7xZHc',
+      attached: function(){
+        this.super();
+        var self = this;
+        this.onload=function(){self.refresh();};
+
+        if(this.cache != null){
+          this.contact = this.cache;
+        }
+        this.attached = 1;
+      },
+      contactChanged: function(){
+        if(this.contact){
+            var len = this.contact.feed.entry.length;
+	    while (len--) {
+	      if( this.contact.feed.entry[len].gsx$map.$t != ''){
+	        this.$[this.contact.feed.entry[len].gsx$location.$t+'-map'].innerHTML = this.contact.feed.entry[len].gsx$map.$t;
+	      }
+	      if( this.contact.feed.entry[len].gsx$group.$t == 'contact'){
+	        this.$[this.contact.feed.entry[len].gsx$location.$t+'-name'].innerHTML = this.contact.feed.entry[len].gsx$name.$t;
+	        this.$[this.contact.feed.entry[len].gsx$location.$t+'-phone'].innerHTML = '  ' +  this.contact.feed.entry[len].gsx$phone.$t;
+	        this.$[this.contact.feed.entry[len].gsx$location.$t+'-email'].innerHTML = '  ' + this.contact.feed.entry[len].gsx$email.$t;
+	      }
+            }
+
+            this.cache = this.contact;
+        }
+      }
+    });
+
+  </script>
+</polymer-element>

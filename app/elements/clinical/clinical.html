@@ -1,0 +1,437 @@
+<link rel="import" href="../page/page.html">
+<link rel="import" href="../people/people.html">
+
+<link rel="import" href="../../lib-elements/paper-button/paper-button.html">
+<link rel="import" href="../../lib-elements/paper-dialog/paper-dialog-transition.html">
+<link rel="import" href="../../lib-elements/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../lib-elements/core-selector/core-selector.html">
+<link rel="import" href="../../lib-elements/paper-tabs/paper-tabs.html">
+
+<polymer-element name="clinical-element" extends="page-element">
+  <template>
+
+    <link rel="stylesheet" href="clinical.css">
+
+    <!-- Page Title -->
+    <div class='pageTitle'>
+      <div class="container">
+        <div id="jumbo" class=" jumbotron" >
+          <template if="{{(research == null) && (cache == null)}}">
+            <span class="spinner"><img src="../../images/spinner.gif"></span>
+          </template>
+          <span class="small">We are</span>
+          <span class="large">the clinical excellence team</span>
+        </div>
+      </div>
+    </div>
+
+    <div id="navnavContainer">
+         <div id="navnav">
+        <div>
+          <div class='container'>
+            <ul class='navbar-nav nav'>
+              <template if="{{structure != null}}">
+                <template repeat="{{section in structure}}">
+                  <li on-tap="{{gotoSection}}" class='nav-element'>
+                    <a id='{{name}}-nav-{{section.index}}' data-section='{{section.index}}'>{{section.label}}</a>
+                  </li>
+                </template>
+              </template>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paper Dialog -->
+    <paper-dialog heading="More about" transition="paper-dialog-transition-center" tabindex="-1" class="{{people.gsx$lastname.$t}} paper-dialog-transition paper-dialog-transition-center" style="z-index: 2000; position: fixed; display: none;">
+      <content>
+
+        <paper-tabs selected="0" class="transparent-teal" noink>
+          <paper-tab>BIOGRAPHY</paper-tab>
+          <paper-tab>PUBLICATION</paper-tab>
+          <paper-tab>AWARDS</paper-tab>
+        </paper-tabs>
+
+        <div id="biography"></div>
+        <div id="papers"></div>
+        <div id="awards"></div>
+
+      </content>
+
+      <paper-button label="Close" affirmative default></paper-button>
+
+    </paper-dialog>
+
+    <!-- Page Content -->
+    <div class="container">
+        <div class="col-md-12 col-lg-12">
+          <div class="fBox">
+      
+	      <section id="respiratory" class="element">
+
+              <div class="row card">
+
+		      <div class="title">Respitarory</div>
+                
+		      <div class='subsection'>Members</div>
+		      <div class='row'>
+		      <template if="{{clinical != null}}">
+		      <template repeat="{{people in clinical.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'respiratory'}}">
+		      <template if="{{people.gsx$subsection.$t === 'member'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}" cardExtra="true"></card-element>
+		      </template>
+		      </template>
+		      </template>
+		      </template>
+	              </div>
+	   
+		      <div class='subsection'>Current activity</div>
+		      <div id='respiratory_activity_p1' class='missionP'></div>
+		      <div id='respiratory_activity_p2' class='missionP'></div>
+		      <div id='respiratory_activity_p3' class='missionP'></div>
+  
+		      <div class='subsection'>Guidelines</div>
+		      <div id='respiratory_guidelines_p1' class='missionP'></div>
+		      <div id='respiratory_guidelines_p2' class='missionP'></div>
+		      <div id='respiratory_guidelines_p3' class='missionP'></div>
+  
+		      <div class='subsection'>References</div>
+		      <div id='respiratory_references_p1' class='missionP'></div>
+		      <div id='respiratory_references_p2' class='missionP'></div>
+		      <div id='respiratory_references_p3' class='missionP'></div>
+	   
+	      </div>
+  
+	      </section>
+
+
+            <section id="neurology" class="element">
+
+              <div class="row card">
+
+		      <div class="title">Neurology</div>
+                
+		      <div class='subsection'>Members</div>
+		      <div class='row'>
+		      <template if="{{clinical != null}}">
+		      <template repeat="{{people in clinical.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'neurology'}}">
+		      <template if="{{people.gsx$subsection.$t === 'member'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}" cardExtra="true"></card-element>
+		      </template>
+		      </template>
+		      </template>
+		      </template>
+	              </div>
+	   
+		      <div class='subsection'>Current activity</div>
+		      <div id='neurology_activity_p1' class='missionP'></div>
+		      <div id='neurology_activity_p2' class='missionP'></div>
+		      <div id='neurology_activity_p3' class='missionP'></div>
+  
+		      <div class='subsection'>Guidelines</div>
+		      <div id='neurology_guidelines_p1' class='missionP'></div>
+		      <div id='neurology_guidelines_p2' class='missionP'></div>
+		      <div id='neurology_guidelines_p3' class='missionP'></div>
+  
+		      <div class='subsection'>References</div>
+		      <div id='neurology_references_p1' class='missionP'></div>
+		      <div id='neurology_references_p2' class='missionP'></div>
+		      <div id='neurology_references_p3' class='missionP'></div>
+	   
+	      </div>
+  
+	      </section>
+	      
+	      <section id="perinatal" class="element">
+
+              <div class="row card">
+
+		      <div class="title">Perinatal</div>
+                
+		      <div class='subsection'>Members</div>
+		      <div class='row'>
+		      <template if="{{clinical != null}}">
+		      <template repeat="{{people in clinical.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'perinatal'}}">
+		      <template if="{{people.gsx$subsection.$t === 'member'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}" cardExtra="true"></card-element>
+		      </template>
+		      </template>
+		      </template>
+		      </template>
+	              </div>
+	   
+		      <div class='subsection'>Current activity</div>
+		      <div id='perinatal_activity_p1' class='missionP'></div>
+		      <div id='perinatal_activity_p2' class='missionP'></div>
+		      <div id='perinatal_activity_p3' class='missionP'></div>
+  
+		      <div class='subsection'>Guidelines</div>
+		      <div id='perinatal_guidelines_p1' class='missionP'></div>
+		      <div id='perinatal_guidelines_p2' class='missionP'></div>
+		      <div id='perinatal_guidelines_p3' class='missionP'></div>
+  
+		      <div class='subsection'>References</div>
+		      <div id='perinatal_references_p1' class='missionP'></div>
+		      <div id='perinatal_references_p2' class='missionP'></div>
+		      <div id='perinatal_references_p3' class='missionP'></div>
+	   
+	      </div>
+  
+	      </section>
+
+	      <section id="gifen" class="element">
+
+              <div class="row card">
+
+		      <div class="title">GI/FEN</div>
+                
+		      <div class='subsection'>Members</div>
+		      <div class='row'>
+		      <template if="{{clinical != null}}">
+		      <template repeat="{{people in clinical.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'gifen'}}">
+		      <template if="{{people.gsx$subsection.$t === 'member'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}" cardExtra="true"></card-element>
+		      </template>
+		      </template>
+		      </template>
+		      </template>
+	              </div>
+	   
+		      <div class='subsection'>Current activity</div>
+		      <div id='gifen_activity_p1' class='missionP'></div>
+		      <div id='gifen_activity_p2' class='missionP'></div>
+		      <div id='gifen_activity_p3' class='missionP'></div>
+  
+		      <div class='subsection'>Guidelines</div>
+		      <div id='gifen_guidelines_p1' class='missionP'></div>
+		      <div id='gifen_guidelines_p2' class='missionP'></div>
+		      <div id='gifen_guidelines_p3' class='missionP'></div>
+  
+		      <div class='subsection'>References</div>
+		      <div id='gifen_references_p1' class='missionP'></div>
+		      <div id='gifen_references_p2' class='missionP'></div>
+		      <div id='gifen_references_p3' class='missionP'></div>
+	   
+	      </div>
+  
+	      </section>
+
+	      <section id="cardiology" class="element">
+
+              <div class="row card">
+
+		      <div class="title">Cardiologyy</div>
+                
+		      <div class='subsection'>Members</div>
+		      <div class='row'>
+		      <template if="{{clinical != null}}">
+		      <template repeat="{{people in clinical.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'cardiology'}}">
+		      <template if="{{people.gsx$subsection.$t === 'member'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}" cardExtra="true"></card-element>
+		      </template>
+		      </template>
+		      </template>
+		      </template>
+	              </div>
+	   
+		      <div class='subsection'>Current activity</div>
+		      <div id='cardiology_activity_p1' class='missionP'></div>
+		      <div id='cardiology_activity_p2' class='missionP'></div>
+		      <div id='cardiology_activity_p3' class='missionP'></div>
+  
+		      <div class='subsection'>Guidelines</div>
+		      <div id='cardiology_guidelines_p1' class='missionP'></div>
+		      <div id='cardiology_guidelines_p2' class='missionP'></div>
+		      <div id='cardiology_guidelines_p3' class='missionP'></div>
+  
+		      <div class='subsection'>References</div>
+		      <div id='cardiology_references_p1' class='missionP'></div>
+		      <div id='cardiology_references_p2' class='missionP'></div>
+		      <div id='cardiology_references_p3' class='missionP'></div>
+	   
+	      </div>
+  
+	      </section>
+
+	      <section id="hemeid" class="element">
+
+              <div class="row card">
+
+		      <div class="title">Heme/ID</div>
+                
+		      <div class='subsection'>Members</div>
+		      <div class='row'>
+		      <template if="{{clinical != null}}">
+		      <template repeat="{{people in clinical.feed.entry}}">
+		      <template if="{{people.gsx$section.$t === 'hemeid'}}">
+		      <template if="{{people.gsx$subsection.$t === 'member'}}">
+		      <card-element cardObject="{{people}}" cardLoaded="{{peopleLoaded}}" cardSelected="{{peopleSelected}}" cardExtra="true"></card-element>
+		      </template>
+		      </template>
+		      </template>
+		      </template>
+	              </div>
+	   
+		      <div class='subsection'>Current activity</div>
+		      <div id='hemeid_activity_p1' class='missionP'></div>
+		      <div id='hemeid_activity_p2' class='missionP'></div>
+		      <div id='hemeid_activity_p3' class='missionP'></div>
+  
+		      <div class='subsection'>Guidelines</div>
+		      <div id='hemeid_guidelines_p1' class='missionP'></div>
+		      <div id='hemeid_guidelines_p2' class='missionP'></div>
+		      <div id='hemeid_guidelines_p3' class='missionP'></div>
+  
+		      <div class='subsection'>References</div>
+		      <div id='hemeid_references_p1' class='missionP'></div>
+		      <div id='hemeid_references_p2' class='missionP'></div>
+		      <div id='hemeid_references_p3' class='missionP'></div>
+	   
+	      </div>
+  
+	      </section>
+
+        </div>
+      </div>
+    </div>
+
+    <template if="{{cache == null && attached == 1 }}">
+      <polymer-jsonp auto url="https://spreadsheets.google.com/feeds/list/{{spreadsheet}}/od6/public/values?alt=json-in-script&callback=" response="{{clinical}}"></polymer-jsonp>
+    </template>
+
+  </template>
+  <script>
+    Polymer('clinical-element', {
+      name: 'clinical',
+      spreadsheet: '17hzI6ntmYJ44_Q_5K_sNaJK_JkcO9hY4wq8VBl6bNRs',
+      cdn: 'https://googledrive.com/host/0B5vN-2WhAQb9WEl0Qko0SDEyR2c/',
+      clinical: null,
+      attached: function(){
+        this.super();
+        if(this.cache != null){
+          this.clinical = this.cache;
+        }
+
+        var tabs = this.shadowRoot.querySelector('paper-tabs');
+
+        if(tabs.selected == 0){
+          this.$.papers.style.display="none";
+          this.$.awards.style.display="none";
+          this.$.biography.style.display="block";
+        }
+        else if(tabs.selected == 1){
+          this.$.awards.style.display="none";
+          this.$.biography.style.display="none";
+          this.$.papers.style.display="block";
+        }
+        else{
+          this.$.papers.style.display="none";
+          this.$.biography.style.display="none";
+          this.$.awards.style.display="block";
+        }
+
+        var self = this;
+        tabs.addEventListener('core-select', function() {
+
+          if(tabs.selected == 0){
+            self.$.papers.style.display="none";
+            self.$.awards.style.display="none";
+            self.$.biography.style.display="block";
+          }
+          else if(tabs.selected == 1){
+            self.$.awards.style.display="none";
+            self.$.biography.style.display="none";
+            self.$.papers.style.display="block";
+          }
+          else{
+            self.$.papers.style.display="none";
+            self.$.biography.style.display="none";
+            self.$.awards.style.display="block";
+          }
+
+        });
+
+        this.attached = 1;
+      },
+      peopleLoadedChanged: function(){
+        this.refresh();
+        this.updateNavigation();
+      },
+      peopleSelectedChanged: function(){
+        // update content of dialog
+        if(this.peopleSelected != null){
+          this.$.biography.innerHTML = this.peopleSelected.gsx$bio.$t;
+          this.$.papers.innerHTML = this.peopleSelected.gsx$publications.$t;
+          this.$.awards.innerHTML = this.peopleSelected.gsx$awards.$t;
+
+          var dialog = this.shadowRoot.querySelector('paper-dialog');
+          dialog.shadowRoot.querySelector('#main h1').innerHTML = this.peopleSelected.gsx$firstname.$t + ' ' + this.peopleSelected.gsx$middlename.$t + ' ' + this.peopleSelected.gsx$lastname.$t;
+          dialog.toggle();
+
+          this.peopleSelected = null;
+        }
+
+      },
+      clinicalChanged: function(){
+        if(this.clinical){
+          
+          for(var i = 0; i < this.clinical.feed.entry.length; i++){
+	  
+	    if(this.clinical.feed.entry[i].gsx$type.$t == 'paragraph'){
+	      this.$[this.clinical.feed.entry[i].gsx$section.$t + '_' + this.clinical.feed.entry[i].gsx$subsection.$t + '_' + this.clinical.feed.entry[i].gsx$group.$t].innerHTML = this.clinical.feed.entry[i].gsx$hospital.$t;
+	    } 
+            
+	    // handle members
+	    if(this.clinical.feed.entry[i].gsx$type.$t == 'person'){	  
+
+	    // generate title if no title
+            if(!this.clinical.feed.entry[i].gsx$title){
+              this.clinical.feed.entry[i].gsx$title = {$t:''};
+              this.clinical.feed.entry[i].gsx$title.$t = this.clinical.feed.entry[i].gsx$firstname.$t + ' ' + this.clinical.feed.entry[i].gsx$middlename.$t + ' ' + this.clinical.feed.entry[i].gsx$lastname.$t;
+              if(this.clinical.feed.entry[i].gsx$suffix.$t != ''){
+                this.clinical.feed.entry[i].gsx$title.$t += ', ' + this.clinical.feed.entry[i].gsx$suffix.$t;
+              }
+            }
+
+            // generate picture if no
+            if(!this.clinical.feed.entry[i].gsx$picture){
+              this.clinical.feed.entry[i].gsx$picture = {$t:''};
+              this.clinical.feed.entry[i].gsx$picture.$t = this.cdn +this.clinical.feed.entry[i].gsx$picturename.$t;
+            }
+
+            // generate text for the lines
+            if(!this.clinical.feed.entry[i].gsx$l1){
+              this.clinical.feed.entry[i].gsx$l1 = {$t:''};
+              this.clinical.feed.entry[i].gsx$l1.$t = this.clinical.feed.entry[i].gsx$hospitaltitle.$t;
+            }
+            if(!this.clinical.feed.entry[i].gsx$l2){
+              this.clinical.feed.entry[i].gsx$l2 = {$t:''};
+              this.clinical.feed.entry[i].gsx$l2.$t = this.clinical.feed.entry[i].gsx$academictitle.$t;
+            }
+            if(!this.clinical.feed.entry[i].gsx$l3){
+              this.clinical.feed.entry[i].gsx$l3 = {$t:''};
+              this.clinical.feed.entry[i].gsx$l3.$t = this.clinical.feed.entry[i].gsx$department.$t;
+             }
+            if(!this.clinical.feed.entry[i].gsx$l4){
+              this.clinical.feed.entry[i].gsx$l4 = {$t:''};
+              this.clinical.feed.entry[i].gsx$l4.$t = this.clinical.feed.entry[i].gsx$hospital.$t;
+             }
+      }
+
+
+          }
+         window.console.log(this.clinical); 
+          // cache it
+          this.cache = this.clinical;
+        }
+      }
+    });
+
+  </script>
+</polymer-element>
