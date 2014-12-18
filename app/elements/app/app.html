@@ -40,6 +40,8 @@
 		<template repeat="{{page.subpages as subpage}}">	
 			<section id='{{ subpage.id}}' hash="#{{page.label}}/{{subpage.label}}" layout vertical center-center fit>
 				{{ subpage.id }}
+				<div id="content-{{ subpage.id }}"></div>
+				<!-- <{{ subpage.element }}></{{ subpage.element }}> -->
 				<!-- should not be part of the page -->
 				<footer-element id="footer-{{ subpage.id }}" narrow="{{ narrow }}"></footer-element>
 				
@@ -56,34 +58,33 @@
 	Polymer('app-element', {
 			// here we define the whole architecture of the website
 			// this is enough to have the right 'empty pages'
-		        // * COULD get that from online spreadsheet...*
-		        pages: [
-		        {id: 'home', label: 'home', color: '#2196F3', accent: '#1DE9B6', subpages: [
-		        {id:'home-introduction', label: 'introduction', element: 'intro-element'}
-		        ]},
-		        {id: 'research', label: 'research', color: '#4CAF50', accent: '#1DE9B6', subpages: [
-		        {id:'research-introduction', label: 'introduction', element: 'intro-element'},
-		        {id:'research-mri', label: 'mri', element: 'research-element'},
-		        {id:'research-nirs', label: 'nirs', element: 'research-element'},
-		        {id:'research-meg', label: 'meg', element: 'research-element'}
-		        ]},
-		        {id: 'highlights', label: 'highlights', color:'#FFC107', accent: '#1DE9B6', subpages: [
-		        {id:'highlights-introduction', label: 'introduction', element: 'intro-element'},
-		        {id:'highlights-2014', label: '2014', element: 'highlight-element'}
-		        ]},
-		        {id: 'softwares', label: 'softwares', color:'#FF5722', accent: '#1DE9B6', subpages:[
-		        {id:'softwares-introduction', label: 'introduction', element: 'intro-element'},	
-		        {id:'softwares-chris', label: 'chris', element: 'software-element'},	
-		        ]},
-		        {id: 'team', label: 'team', color: '#E91E63', accent: '#1DE9B6', subpages:[
-		        {id:'team-introduction', label: 'introduction', element: 'introduction-element', loaded:0},
-		        {id:'team-faculty', label: 'faculty', element:'team-element', loaded:0}
-		        ]},
-		        ],
-		        selectActionST: function(e, detail) {
-		        	window.console.log('++++ST++++');
-		        	window.console.log(detail);
-		        	if (detail.isSelected) {
+						pages: [
+						{id: 'home', label: 'home', color: '#2196F3', accent: '#1DE9B6', subpages: [
+						{id:'home-introduction', label: 'introduction', element: 'introduction-element'}
+						]},
+						{id: 'research', label: 'research', color: '#4CAF50', accent: '#1DE9B6', subpages: [
+						{id:'research-introduction', label: 'introduction', element: 'introduction-element'},
+						{id:'research-mri', label: 'mri', element: 'introduction-element'},
+						{id:'research-nirs', label: 'nirs', element: 'introduction-element'},
+						{id:'research-meg', label: 'meg', element: 'introduction-element'}
+						]},
+						{id: 'highlights', label: 'highlights', color:'#FFC107', accent: '#1DE9B6', subpages: [
+						{id:'highlights-introduction', label: 'introduction', element: 'introduction-element'},
+						{id:'highlights-2014', label: '2014', element: 'highlight-element'}
+						]},
+						{id: 'softwares', label: 'softwares', color:'#FF5722', accent: '#1DE9B6', subpages:[
+						{id:'softwares-introduction', label: 'introduction', element: 'introduction-element'},	
+						{id:'softwares-chris', label: 'chris', element: 'introduction-element'},	
+						]},
+						{id: 'team', label: 'team', color: '#E91E63', accent: '#1DE9B6', subpages:[
+						{id:'team-introduction', label: 'introduction', element: 'introduction-element', loaded:0},
+						{id:'team-faculty', label: 'faculty', element:'introduction-element', loaded:0}
+						]},
+						],
+						selectActionST: function(e, detail) {
+							window.console.log('++++ST++++');
+							window.console.log(detail);
+							if (detail.isSelected) {
 					// get right hash!
 				}
 			},
@@ -106,33 +107,25 @@
 				}
 			},
 			routeChanged: function(oldValue, newValue){
-				window.console.log(this.route);
 				if(this.route == null || this.route == ''){
 
 					this.route = this.pages[0].id + '/' + this.pages[0].subpages[0].label;
 				}
 
-				var test = newValue.split('/');
+				var splittedRoute = newValue.split('/');
 
-				this.page = {'section': test[0],
-				'subsection': test[1],
-				'id': test[0] + '-' + test[1] 
-			};
-
-		},
-		pageChanged: function(){
-
+				// get previous and next pages as well
 				// which section are we now?
 				var prev = [0, 0];
 				var cur = [0, 0];
 				var next = [0, 0];
 				for(var i=0; i<this.pages.length; i++){
-					if(this.pages[i].id === this.page.section){
+					if(this.pages[i].id === splittedRoute[0]){
 						// set color of the header
 						var page = this.pages[i];
 						this.$.pageToolbar.style.backgroundColor = page.color;
 						for(var j=0; j<page.subpages.length; j++){
-							if(page.subpages[j].label === this.page.subsection){
+							if(page.subpages[j].label === splittedRoute[1]){
 								// find previous
 								if(j>0){
 									prev = [i, j-1];
@@ -168,34 +161,68 @@
 					}
 				}
 
-				// select right page (core-selector, find with id-core-submenu)
-				if(this.$['iam-core-menu'].selected != cur[0]){
-					this.$['iam-core-menu'].selected = cur[0];
-				}
-				this.$[this.page.section + '-core-submenu'].selected = 2*cur[1];
+				this.previousPage = {
+					'section': splittedRoute[0],
+					'sectionIndex': prev[0],
+					'subsection': splittedRoute[1],
+					'subsectionIndex': prev[1],
+					'id': splittedRoute[0] + '-' + splittedRoute[1] 
+				};
 
-        // set title
-        this.$.myPage.innerHTML = this.page.section;
-        this.$.mySubpage.innerHTML = this.page.subsection;
-        var prevFooter = {
-        	color: this.pages[prev[0]].color,
-        	target: '#' + this.pages[prev[0]].id + '/' + this.pages[prev[0]].subpages[prev[1]].label,
-        	label: this.pages[prev[0]].subpages[prev[1]].label
-        };
-        this.$['footer-' + this.page.id].previous = prevFooter;
-        var nextFooter = {
-        	color: this.pages[next[0]].color,
-        	target: '#' + this.pages[next[0]].id + '/' + this.pages[next[0]].subpages[next[1]].label,
-        	label: this.pages[next[0]].subpages[next[1]].label
-        };
-        this.$['footer-' + this.page.id].next = nextFooter;
+				this.nextPage = {
+					'section': splittedRoute[0],
+					'sectionIndex': next[0],
+					'subsection': splittedRoute[1],
+					'subsectionIndex': next[1],
+					'id': splittedRoute[0] + '-' + splittedRoute[1] 
+				};
+
+				this.page = {
+					'section': splittedRoute[0],
+					'sectionIndex': cur[0],
+					'subsection': splittedRoute[1],
+					'subsectionIndex': cur[1],
+					'id': splittedRoute[0] + '-' + splittedRoute[1],
+					'url': this.pages[cur[0]].subpages[cur[1]].element
+				};
+
+			},
+			pageChanged: function(){
+				window.console.log(this.page.url);
+				// select right page (core-selector, find with id-core-submenu)
+				if(this.$['iam-core-menu'].selected != this.page.sectionIndex){
+					this.$['iam-core-menu'].selected = this.page.sectionIndex;
+				}
+				this.$[this.page.section + '-core-submenu'].selected = 2*this.page.subsectionIndex;
+
+				// set title
+				this.$.myPage.innerHTML = this.page.section;
+				this.$.mySubpage.innerHTML = this.page.subsection;
+				var prevFooter = {
+					color: this.pages[this.previousPage.sectionIndex].color,
+					target: '#' + this.pages[this.previousPage.sectionIndex].id + '/' + this.pages[this.previousPage.sectionIndex].subpages[this.previousPage.subsectionIndex].label,
+					label: this.pages[this.previousPage.sectionIndex].subpages[this.previousPage.subsectionIndex].label
+				};
+				this.$['footer-' + this.page.id].previous = prevFooter;
+
+				var nextFooter = {
+					color: this.pages[this.nextPage.sectionIndex].color,
+					target: '#' + this.pages[this.nextPage.sectionIndex].id + '/' + this.pages[this.nextPage.sectionIndex].subpages[this.nextPage.subsectionIndex].label,
+					label: this.pages[this.nextPage.sectionIndex].subpages[this.nextPage.subsectionIndex].label
+				};
+				this.$['footer-' + this.page.id].next = nextFooter;
+
+				// load element (if needed - should be a check here)
+				var content = '<' + this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element + '></' + this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element + '>';
+			// igonre warning (https://github.com/Polymer/polymer/issues/795)
+				this.$['content-' + this.page.id].innerHTML = content;
+				window.console.log(content);
+
+				this.$.waterFallTall.shadowRoot.getElementById('mainContainer').scrollTop = 0;
 
 				// select right page to trigger transition
 				this.$.allPages.selected = '#' + this.page.section + '/' + this.page.subsection;
-				
-				this.$.waterFallTall.shadowRoot.getElementById('mainContainer').scrollTop = 0;
 			}
-
-		});
+});
 </script>
 </polymer-element>
