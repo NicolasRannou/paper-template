@@ -37,12 +37,10 @@
 <div id="awesomeContent" class="content">
 	<core-animated-pages  id='allPages' valueattr='hash' transitions="slide-from-right">
 	<template repeat="{{page in pages}}">
-		<template repeat="{{page.subpages as subpage}}">	
-			<section id='{{ subpage.id}}' hash="#{{page.label}}/{{subpage.label}}" layout vertical center-center fit>
-				{{ subpage.id }}
+		<template repeat="{{page.subpages as subpage}}">
+		<!-- layout vertical center-center fit -->
+			<section id='{{ subpage.id}}' hash="#{{page.label}}/{{subpage.label}}">
 				<div id="content-{{ subpage.id }}"></div>
-				<!-- <{{ subpage.element }}></{{ subpage.element }}> -->
-				<!-- should not be part of the page -->
 				<footer-element id="footer-{{ subpage.id }}" narrow="{{ narrow }}"></footer-element>
 				
 			</section>
