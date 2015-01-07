@@ -1,1 +1,9 @@
-style
+.box{
+width: 50%;
+height:20%;
+margin: auto;
+}
+
+.yellow{
+background-color: #FFC107;
+}

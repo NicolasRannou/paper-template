@@ -1,4 +1,4 @@
-<polymer-element name="highlight-element">
+<polymer-element name="highlight-element" attributes="full">
 <template>
   <link rel="stylesheet" href="highlight.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -7,25 +7,23 @@
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
+            <div  class='box yellow' on-tap="{{goFull}}" hero-id="hero-{{subpage.id}}" hero>
+    YOYY
+    </div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
+        <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
-
+        <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
+        <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
     <div>HIGHLIGHT!!!!!!!!</div>
@@ -35,7 +33,14 @@
 
 <script>
   Polymer('highlight-element', {
-
+    goFull: function(){
+        this.full = true;
+        window.console.log(this.full);
+    },
+    goFullFalse: function(){
+        this.full = false;
+        window.console.log(this.full);
+    }
   });
 </script>
 </polymer-element>

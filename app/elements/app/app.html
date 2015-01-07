@@ -4,7 +4,7 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 	<flatiron-director route="{{route}}" autoHash></flatiron-director>
-
+<!-- forceNarrow -->
 	<core-drawer-panel id="drawerPanel" narrow='{{ narrow }}'>
 
 	<core-header-panel drawer mode="waterfall">
@@ -24,28 +24,69 @@
 
 <core-header-panel id='waterFallTall' main>
 <core-toolbar id='pageToolbar' class="core-header">
-<core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
+
+<paper-icon-button id="toolbarMenuIcon" core-drawer-toggle icon="menu"></paper-icon-button>
+<paper-icon-button id="toolbarCloseIcon" icon="close" on-tap="{{ exitFull }}"></paper-icon-button>
+
+<!-- <icon-transition core-drawer-toggle id="icon1" color="#fff" shape="cancel" ></icon-transition> -->
 <div class="bottom indent">
 	<div id='pageTitle' class='title'>
 		<span id='myPage'></span>
 		<i class="fa fa-angle-right"></i>
 		<span id='mySubpage'></span>
 	</div>
+
+	<div id='fullTitle' class='title'>
+		Close
+	</div>
+
 </div>
 </core-toolbar>
 <!-- layout vertical center-center -->
 <div id="awesomeContent" class="content">
-	<core-animated-pages  id='allPages' valueattr='hash' transitions="slide-from-right">
-	<template repeat="{{page in pages}}">
+	<core-animated-pages  id='allPages' valueattr='hash' transitions="{{sliding}} hero-transition cross-fade">
+		<template repeat="{{page in pages}}">
 		<template repeat="{{page.subpages as subpage}}">
 		<!-- layout vertical center-center fit -->
 			<section id='{{ subpage.id}}' hash="#{{page.label}}/{{subpage.label}}">
-				<div id="content-{{ subpage.id }}"></div>
-				<footer-element id="footer-{{ subpage.id }}" narrow="{{ narrow }}"></footer-element>
-				
+<!-- 			<span  class='box yellow' on-tap="{{goFull}}" hero-id="hero-highlights-2014" hero>
+    YOYY
+    </span> -->
+				<div id="content-{{ subpage.id }}" cross-fade?="{{ full === true}}"></div>
+				<footer-element id="footer-{{ subpage.id }}" narrow="{{ narrow }}" cross-fade?="{{ full === true}}"></footer-element>
+			</section>
+
+			<section id='{{subpage.id}}-full' hash="#{{page.label}}/{{subpage.label}}/full" layout vertical center-center>
+
+				<div flex vertical center center-justified layout hero-id="hero-{{subpage.id}}" hero  class='yellow' >
+					<div cross-fade>
+						Hello you {{ subpage.id }}!!
+    			</div>
+    		</div>
 			</section>
 		</template>
 	</template>
+
+<!-- 				<section id='highlights-2014' hash="#highlights/2014">
+						<div  class='box yellow' on-tap="{{goFull}}" hero-id="hero-highlights-2014" hero cross-fade>
+    YOYY
+    </div>
+    <highlight-element full={{full}}></highlight-element>
+				<div id="content-highlights-2014" cross-fade></div>
+				<footer-element id="footer-highlights-2014" narrow="{{ narrow }}" cross-fade></footer-element>
+			</section>
+
+			<section id='highlights-2014-full' hash="#highlights/2014/full" layout vertical center-center>
+
+<div flex vertical center center-justified layout hero-id="hero-highlights-2014" hero  class='yellow' ><span cross-fade>
+			Hello you {{ subpage.id }}!!
+			 <div class='box red' on-tap="{{exitFull}}">
+			 EXIT FULL SCREEN
+    		</div>
+    		</span></div>
+
+
+			</section> -->
 </core-animated-pages>
 </div>
 </core-header-panel>
@@ -58,27 +99,30 @@
 			// this is enough to have the right 'empty pages'
 						pages: [
 						{id: 'home', label: 'home', color: '#2196F3', accent: '#1DE9B6', subpages: [
-						{id:'home-introduction', label: 'introduction', element: 'introduction-element'}
+						{id:'home-introduction', label: 'introduction', element: 'introduction-element', appended: false}
 						]},
 						{id: 'research', label: 'research', color: '#4CAF50', accent: '#1DE9B6', subpages: [
-						{id:'research-introduction', label: 'introduction', element: 'introduction-element'},
-						{id:'research-mri', label: 'mri', element: 'introduction-element'},
-						{id:'research-nirs', label: 'nirs', element: 'introduction-element'},
-						{id:'research-meg', label: 'meg', element: 'introduction-element'}
+						{id:'research-introduction', label: 'introduction', element: 'introduction-element', appended: false},
+						{id:'research-mri', label: 'mri', element: 'introduction-element', appended: false},
+						{id:'research-nirs', label: 'nirs', element: 'introduction-element', appended: false},
+						{id:'research-meg', label: 'meg', element: 'introduction-element', appended: false}
 						]},
 						{id: 'highlights', label: 'highlights', color:'#FFC107', accent: '#1DE9B6', subpages: [
-						{id:'highlights-introduction', label: 'introduction', element: 'introduction-element'},
-						{id:'highlights-2014', label: '2014', element: 'highlight-element'}
+						{id:'highlights-introduction', label: 'introduction', element: 'introduction-element', appended: false},
+						{id:'highlights-2014', label: '2014', element: 'highlight-element', appended: false}
 						]},
 						{id: 'softwares', label: 'softwares', color:'#FF5722', accent: '#1DE9B6', subpages:[
-						{id:'softwares-introduction', label: 'introduction', element: 'introduction-element'},	
-						{id:'softwares-chris', label: 'chris', element: 'introduction-element'},	
+						{id:'softwares-introduction', label: 'introduction', element: 'introduction-element', appended: false},	
+						{id:'softwares-chris', label: 'chris', element: 'introduction-element', appended: false},
 						]},
 						{id: 'team', label: 'team', color: '#E91E63', accent: '#1DE9B6', subpages:[
-						{id:'team-introduction', label: 'introduction', element: 'introduction-element', loaded:0},
-						{id:'team-faculty', label: 'faculty', element:'introduction-element', loaded:0}
+						{id:'team-introduction', label: 'introduction', element: 'introduction-element', appended: false},
+						{id:'team-faculty', label: 'faculty', element:'introduction-element', appended: false}
 						]},
 						],
+						sliding: '',
+						full: false,
+						firstLoad: true,
 						selectActionST: function(e, detail) {
 							window.console.log('++++ST++++');
 							window.console.log(detail);
@@ -96,13 +140,56 @@
 			ready: function(){
 				this.narrow = this.$.drawerPanel.narrow;
 			},
-			narrowChanged: function(){
-				if(this.narrow){
+			exitFull: function(){
+					this.full = false;
+			},
+			goFull: function(){
+        this.full = true;
+        window.console.log(this.full);
+      },
+			fullChanged: function(){
+				// add or remove full in current page url
+				this.sliding = '';
+				if(this.full){
+					//
+					this.$.drawerPanel.forceNarrow = true;
+					this.updateCoreHeaderPanelStyle(true);
+					this.$.toolbarCloseIcon.style.display = 'block';
+					this.$.toolbarMenuIcon.style.display = 'none';
+					this.$.fullTitle.style.display = 'block';
+					this.$.pageTitle.style.display = 'none';
+
+					// go
+					this.$.allPages.selected = '#' + this.page.section + '/' + this.page.subsection + '/full';
+				}
+				else{
+					this.$.drawerPanel.forceNarrow = false;
+					this.updateCoreHeaderPanelStyle(false);
+					this.$.toolbarMenuIcon.style.display = 'block';
+					this.$.toolbarCloseIcon.style.display = 'none';
+					this.$.pageTitle.style.display = 'block';
+					this.$.fullTitle.style.display = 'none';
+
+					this.$.allPages.selected = '#' + this.page.section + '/' + this.page.subsection;
+				}
+			},
+			slidingChanged: function(){
+        window.console.log(this.sliding);
+			},
+			updateCoreHeaderPanelStyle: function(forceNarrow){
+				if(typeof(forceNarrow) === 'undefined'){
+          forceNarrow = false;
+				}
+
+				if(this.narrow || forceNarrow){
 					this.$.waterFallTall.mode = 'waterfall';
 				}
 				else{
 					this.$.waterFallTall.mode = 'waterfall-tall';
 				}
+			},
+			narrowChanged: function(){
+				this.updateCoreHeaderPanelStyle();
 			},
 			routeChanged: function(oldValue, newValue){
 				if(this.route == null || this.route == ''){
@@ -211,15 +298,31 @@
 				this.$['footer-' + this.page.id].next = nextFooter;
 
 				// load element (if needed - should be a check here)
-				var content = '<' + this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element + '></' + this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element + '>';
+			// 	var node = document.createElement("div");  
+			// 	var content = '<' + this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element + ' full="{{ full }}" narrow="{{ narrow }}"></' + this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element + '>';
+			// 	node.innerHTML = content;
+			// // igonre warning (https://github.com/Polymer/polymer/issues/795)
+			// 	this.$['content-' + this.page.id].appendChild(node);
+			if(!this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].appended){
+			var node = document.createElement(this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element);
+			node.bind('full', new PathObserver(this, 'full'));
+			this.$['content-' + this.page.id].appendChild(node);
 			// igonre warning (https://github.com/Polymer/polymer/issues/795)
-				this.$['content-' + this.page.id].innerHTML = content;
-				window.console.log(content);
+				this.$['content-' + this.page.id].appendChild(node);
+				// window.console.log(content);
+				this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].appended = true;
+			}
 
-				this.$.waterFallTall.shadowRoot.getElementById('mainContainer').scrollTop = 0;
+			this.$.waterFallTall.shadowRoot.getElementById('mainContainer').scrollTop = 0;
 
-				// select right page to trigger transition
-				this.$.allPages.selected = '#' + this.page.section + '/' + this.page.subsection;
+			// select right page to trigger transition
+			this.sliding = 'slide-from-right';
+			if(this.firstLoad){
+				this.firstLoad = false;
+				this.sliding = '';
+			}
+			
+			this.$.allPages.selected = '#' + this.page.section + '/' + this.page.subsection;
 			}
 });
 </script>

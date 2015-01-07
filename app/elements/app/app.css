@@ -70,3 +70,21 @@ core-animated-pages > * {
 section > div{
   min-height: calc(100% - 67px);
 }
+
+#toolbarCloseIcon, #fullTitle {
+  display:none;
+}
+
+.box{
+width: 150px;
+height:20px;
+margin: auto;
+}
+
+.red{
+background-color: tomato;
+}
+
+.yellow{
+background-color: #FFC107;
+}
