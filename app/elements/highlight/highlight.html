@@ -8,9 +8,7 @@
           <section vertical layout>
             <div id="container" flex horizontal wrap around-justified layout hero-p>
               <template repeat="{{item in items}}">
-                <!-- <a href="#highlights/2014/full/{{item}}"> -->
                 <div class="card" vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || lastSelected === item + 1}}" on-tap="{{selectView}}"><span cross-fade>{{item}}</span></div>
-                <!-- </a> -->
               </template>
               <footer-element id="footerYo"></footer-element>
             </div>
@@ -19,10 +17,7 @@
       <template repeat="{{item in items}}">
         <section vertical layout>
           <div class="view" flex vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || $.pages.selected === 0}}"><span cross-fade>{{item}}</span>
-          <!-- ugly trick -->
-          <!-- <a href="#highlights/2014{{''}}"> -->
           <core-icon-button icon="{{$.pages.selected != 0 ? 'arrow-back' : 'menu'}}" on-tap="{{back}}"></core-icon-button>
-<!-- </a> -->
           </div>
         </section>
       </template>
@@ -41,6 +36,12 @@ for (var i=0; i < count; i++) {
       };
     },
     fullmodeChanged : function(){
+
+        if(! (this.fullmode[0] === 'highlights' && this.fullmode[1] === '2014' )){
+            return;
+        }
+        window.console.log(this.fullmode);
+
         if(this.fullmode.length < 3){
             this.back();
         }
@@ -56,15 +57,19 @@ this.$.footerYo.previous = this.previouspage;
 this.$.footerYo.next = this.nextpage;
     },
           selectView : function(e) {
+            window.console.log('SELECTING...!!!');
         var i = e.target.templateInstance.model.item;
         this.$.pages.selected = i+1;
+        // save history...
         window.location.href = '#highlights/2014/full/' + i;
         
       },
             back : function() {
+                window.console.log('BACKING...!!!');
         
         this.lastSelected = this.$.pages.selected;
         this.$.pages.selected = 0;
+        // save history...
         window.location.href = '#highlights/2014';
       }
   });
