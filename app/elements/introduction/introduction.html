@@ -1,15 +1,23 @@
-<polymer-element name="introduction-element">
+<polymer-element name="introduction-element" attributes="page nextpage previouspage">
 <template>
   <link rel="stylesheet" href="introduction.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <div>
-    HELLO MY FRIEND - INTRODUCTION
+  <div layout horizontal wrap fit>
+    <div class='fullwidth'>HELLO MY FRIEND - INTRODUCTION</div>
+
+    <footer-element id="footerYo"></footer-element>
   </div>
 
 </template>
 <script>
   Polymer('introduction-element', {
+    previouspageChanged : function(){
+this.$.footerYo.previous = this.previouspage;
+    },
+        nextpageChanged : function(){
+this.$.footerYo.next = this.nextpage;
+    }
 
   });
 </script>

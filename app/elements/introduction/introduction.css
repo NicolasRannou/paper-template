@@ -1,0 +1,8 @@
+    #footerYo{
+      flex: 1 100%;
+      align-self:flex-end;
+    }
+
+    .fullwidth{
+      flex: 1 100%; 
+    }

@@ -1,4 +1,4 @@
-<polymer-element name="highlight-element" attributes="page nextpage previouspage">
+<polymer-element name="highlight-element" attributes="page nextpage previouspage fullmode">
 <template>
   <link rel="stylesheet" href="highlight.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -6,9 +6,11 @@
 <div layout horizontal fit>
         <core-animated-pages id="pages" flex on-core-animated-pages-transition-end="{{transitionend}}" transitions="cross-fade-all hero-transition">
           <section vertical layout>
-            <div id="container" flex horizontal wrap around-justified layout hero-p on-scroll="{{scrollHandler}}">
+            <div id="container" flex horizontal wrap around-justified layout hero-p>
               <template repeat="{{item in items}}">
+                <!-- <a href="#highlights/2014/full/{{item}}"> -->
                 <div class="card" vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || lastSelected === item + 1}}" on-tap="{{selectView}}"><span cross-fade>{{item}}</span></div>
+                <!-- </a> -->
               </template>
               <footer-element id="footerYo"></footer-element>
             </div>
@@ -17,7 +19,11 @@
       <template repeat="{{item in items}}">
         <section vertical layout>
           <div class="view" flex vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || $.pages.selected === 0}}"><span cross-fade>{{item}}</span>
-          <core-icon-button icon="{{$.pages.selected != 0 ? 'arrow-back' : 'menu'}}" on-tap="{{back}}"></core-icon-button></div>
+          <!-- ugly trick -->
+          <!-- <a href="#highlights/2014{{''}}"> -->
+          <core-icon-button icon="{{$.pages.selected != 0 ? 'arrow-back' : 'menu'}}" on-tap="{{back}}"></core-icon-button>
+<!-- </a> -->
+          </div>
         </section>
       </template>
       </core-animated-pages>
@@ -33,25 +39,33 @@
 for (var i=0; i < count; i++) {
         this.items.push(i);
       };
+    },
+    fullmodeChanged : function(){
+        if(this.fullmode.length < 3){
+            this.back();
+        }
+        else{
+            this.$.pages.selected = parseInt(this.fullmode[3]) + 1;
+        }
 
-      window.console.log('set footer');
-      window.console.log(this.$.footerYo);
-      this.$.footerYo.previous = {color:"red", target: '#highlights/introduction', label: 'cool'};//this.previouspage
-      this.$.footerYo.next = {color:"blue", target: '#highlights/introduction', label: 'coasdol'};//tthis.nextpage;
-      window.console.log(this.$.footerYo.previous);
+    },
+    previouspageChanged : function(){
+this.$.footerYo.previous = this.previouspage;
+    },
+        nextpageChanged : function(){
+this.$.footerYo.next = this.nextpage;
     },
           selectView : function(e) {
         var i = e.target.templateInstance.model.item;
         this.$.pages.selected = i+1;
-        window.console.log(this.nextpage);
-        window.console.log(this.page);
-        window.console.log(this.previouspage);
+        window.location.href = '#highlights/2014/full/' + i;
         
       },
             back : function() {
         
         this.lastSelected = this.$.pages.selected;
         this.$.pages.selected = 0;
+        window.location.href = '#highlights/2014';
       }
   });
 </script>

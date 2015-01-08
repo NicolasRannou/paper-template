@@ -275,6 +275,9 @@ window.console.log('scrolling...');
           'url': this.pages[cur[0]].subpages[cur[1]].element
         };
 
+        //
+        this.fullmode = splittedRoute;
+
       },
       pageChanged: function(){
         // current page was updated!
@@ -293,33 +296,43 @@ window.console.log('scrolling...');
         // set color
 
 
+       // this.$['footer-' + this.page.id].next = nextFooter;
         this.previousfooter = {
           color: this.pages[this.previouspage.sectionIndex].color,
           target: '#' + this.pages[this.previouspage.sectionIndex].id + '/' + this.pages[this.previouspage.sectionIndex].subpages[this.previouspage.subsectionIndex].label,
           label: this.pages[this.previouspage.sectionIndex].subpages[this.previouspage.subsectionIndex].label
         };
-        // this.$['footer-' + this.page.id].previous = prevFooter;
 
-        this.nextfooter = {
+                this.nextfooter = {
           color: this.pages[this.nextpage.sectionIndex].color,
           target: '#' + this.pages[this.nextpage.sectionIndex].id + '/' + this.pages[this.nextpage.sectionIndex].subpages[this.nextpage.subsectionIndex].label,
           label: this.pages[this.nextpage.sectionIndex].subpages[this.nextpage.subsectionIndex].label
         };
 
-        // this.$['footer-' + this.page.id].next = nextFooter;
-
       // load page if not already loaded
       if(!this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].appended){
         var node = document.createElement(this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element);
-        // node.bind('full', new PathObserver(this, 'full'));
-        node.bind('page', new PathObserver(this, 'page'));
-        node.bind('previouspage', new PathObserver(this, 'previousfooter'));
-        node.bind('nextpage', new PathObserver(this, 'nextfooter'));
-
         this.$[this.page.id].appendChild(node);
+
+        // binding - for the records
+        node.bind('fullmode', new PathObserver(this, 'fullmode'));
+
+        // setup element
+        node.page = this.page;
+        node.previouspage = this.previousfooter;
+        node.nextpage = this.nextfooter;
+
+        // will not try to append it again
         this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].appended = true;
       }
 
+
+        // this.$['footer-' + this.page.id].previous = prevFooter;
+
+
+
+              window.console.log('prev footer');
+      window.console.log(this.previousfooter);
       
       // SCROLL TO TOP
       this.$.waterFallTall.shadowRoot.getElementById('mainContainer').scrollTop = 0;
