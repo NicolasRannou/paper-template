@@ -7,3 +7,27 @@ margin: auto;
 .yellow{
 background-color: #FFC107;
 }
+
+    #container {
+      overflow: auto;
+    }
+
+    .card {
+      position: relative;
+      height: 150px;
+      width: 150px;
+      font-size: 50px;
+      margin: 8px;
+      background-color: tomato;
+      border-radius: 4px;
+      cursor: default;
+    }
+
+    .view {
+      font-size: 250px;
+      background-color: tomato;
+    }
+
+    #footerYo{
+      flex: 1 100%; 
+    }

@@ -1,46 +1,58 @@
-<polymer-element name="highlight-element" attributes="full">
+<polymer-element name="highlight-element" attributes="page nextpage previouspage">
 <template>
   <link rel="stylesheet" href="highlight.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <div style=''>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-            <div  class='box yellow' on-tap="{{goFull}}" hero-id="hero-{{subpage.id}}" hero>
-    YOYY
-    </div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-        <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-        <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-        <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-    <div>HIGHLIGHT!!!!!!!!</div>
-  </div>
+<div layout horizontal fit>
+        <core-animated-pages id="pages" flex on-core-animated-pages-transition-end="{{transitionend}}" transitions="cross-fade-all hero-transition">
+          <section vertical layout>
+            <div id="container" flex horizontal wrap around-justified layout hero-p on-scroll="{{scrollHandler}}">
+              <template repeat="{{item in items}}">
+                <div class="card" vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || lastSelected === item + 1}}" on-tap="{{selectView}}"><span cross-fade>{{item}}</span></div>
+              </template>
+              <footer-element id="footerYo"></footer-element>
+            </div>
+          </section>
+
+      <template repeat="{{item in items}}">
+        <section vertical layout>
+          <div class="view" flex vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || $.pages.selected === 0}}"><span cross-fade>{{item}}</span>
+          <core-icon-button icon="{{$.pages.selected != 0 ? 'arrow-back' : 'menu'}}" on-tap="{{back}}"></core-icon-button></div>
+        </section>
+      </template>
+      </core-animated-pages>
+      </div>
 
 </template>
 
 <script>
   Polymer('highlight-element', {
-    goFull: function(){
-        this.full = true;
-        window.console.log(this.full);
+    items : [],
+    ready: function(){
+        var count = 50;
+for (var i=0; i < count; i++) {
+        this.items.push(i);
+      };
+
+      window.console.log('set footer');
+      window.console.log(this.$.footerYo);
+      this.$.footerYo.previous = {color:"red", target: '#highlights/introduction', label: 'cool'};//this.previouspage
+      this.$.footerYo.next = {color:"blue", target: '#highlights/introduction', label: 'coasdol'};//tthis.nextpage;
+      window.console.log(this.$.footerYo.previous);
     },
-    goFullFalse: function(){
-        this.full = false;
-        window.console.log(this.full);
-    }
+          selectView : function(e) {
+        var i = e.target.templateInstance.model.item;
+        this.$.pages.selected = i+1;
+        window.console.log(this.nextpage);
+        window.console.log(this.page);
+        window.console.log(this.previouspage);
+        
+      },
+            back : function() {
+        
+        this.lastSelected = this.$.pages.selected;
+        this.$.pages.selected = 0;
+      }
   });
 </script>
 </polymer-element>

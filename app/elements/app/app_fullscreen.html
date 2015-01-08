@@ -1,53 +1,107 @@
+<!-- var scrollTargetEl = document.querySelector(location.hash);
+       scrollTargetEl && scrollTargetEl.scrollIntoView(true, {behavior: 'smooth'});
+     }, 200); -->
+
 <polymer-element name="app-element">
+<template>
+  <link rel="stylesheet" href="app.css"> 
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <template>
-    <link rel="stylesheet" href="app.css"> 
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <flatiron-director route="{{route}}" autoHash></flatiron-director>
 
-    <flatiron-director route="{{route}}" autoHash></flatiron-director>
+  <core-drawer-panel id="drawerPanel" narrow='{{ narrow }}'>
 
-    <core-drawer-panel id="drawerPanel" narrow='{{ narrow }}'>
-
-      <!-- Drawer -->
-      <core-header-panel drawer mode="waterfall">
-        <core-toolbar id='drawerToolbar' class='core-header'> Navigation </core-toolbar>
-        <core-menu on-core-select='{{selectActionT}}' id='iam-core-menu'>
-          <template repeat="{{pages as page}}">
-            <core-submenu on-core-select='{{ selectActionST }}' id='{{page.id}}-core-submenu' icons='settings' label="{{page.label}}">
-              <template repeat="{{page.subpages as subpage}}">  
-                <core-item label="{{subpage.label}}" hash="#{{page.label}}/{{subpage.label}}" ><a href="#{{page.label}}/{{subpage.label}}"></core-item>
-              </template>
-            </core-submenu>
-          </template>
-        </core-menu>
-      </core-header-panel>
-
-      <!-- Main -->
-      <core-header-panel id='waterFallTall' main mode="waterfall-tall" on-scroll="{{scrollHandler}}">
-
-        <!-- Main toolbar -->
-        <core-toolbar id='coreTool' class="toolbar">
-          <core-icon-button icon="menu"></core-icon-button>
-          <div flex>Stuff</div>
-          <core-icon-button icon="more-vert"></core-icon-button>
-        </core-toolbar>
-
-        <!-- Main page -->
-        <div layout horizontal fit>
-          <core-animated-pages id="pages" valueattr='hash' flex on-core-animated-pages-transition-end="{{transitionend}}" transitions="slide-from-right">
-            <template repeat="{{page in pages}}">
-              <template repeat="{{page.subpages as subpage}}">
-                <section vertical layout hash="#{{ subpage.id }}">
-                  <!-- do not use ID container -->
-                  <div id="{{ subpage.id }}" flex horizontal wrap around-justified layout></div>
-                </section>
-              </template>
+    <!-- Drawer -->
+    <core-header-panel drawer mode="waterfall">
+      <core-toolbar id='drawerToolbar' class='core-header'> Navigation </core-toolbar>
+      <core-menu on-core-select='{{selectActionT}}' id='iam-core-menu'>
+        <template repeat="{{pages as page}}">
+          <core-submenu on-core-select='{{ selectActionST }}' id='{{page.id}}-core-submenu' icons='settings' label="{{page.label}}">
+            <template repeat="{{page.subpages as subpage}}">  
+              <core-item label="{{subpage.label}}" hash="#{{page.label}}/{{subpage.label}}" ><a href="#{{page.label}}/{{subpage.label}}"></core-item>
             </template>
-          </core-animated-pages>
+          </core-submenu>
+        </template>
+      </core-menu>
+    </core-header-panel>
+
+    <!-- Main -->
+    <core-header-panel id='waterFallTall' main mode="waterfall-tall" on-scroll="{{scrollHandler}}">
+
+      <!-- Main toolbar -->
+      <core-toolbar id='coreTool' class="toolbar">
+        <core-icon-button icon="{{$.pages.selected != 0 ? 'arrow-back' : 'menu'}}" on-tap="{{back}}"></core-icon-button>
+        <div flex>Stuff</div>
+        <core-icon-button icon="more-vert"></core-icon-button>
+      </core-toolbar>
+
+      <!-- Main page -->
+      <div layout horizontal fit>
+        <core-animated-pages id="pages" flex on-core-animated-pages-transition-end="{{transitionend}}" transitions="cross-fade-all hero-transition">
+          <section vertical layout>
+            <div id="container" flex horizontal wrap around-justified layout hero-p on-scroll="{{scrollHandler}}">
+              <template repeat="{{item in items}}">
+                <div class="card" vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || lastSelected === item + 1}}" on-tap="{{selectView}}"><span cross-fade>{{item}}</span></div>
+              </template>
+            </div>
+          </section>
+
+      <template repeat="{{item in items}}">
+        <section vertical layout>
+          <div class="view" flex vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || $.pages.selected === 0}}"><span cross-fade>{{item}}</span>
+          <core-icon-button icon="{{$.pages.selected != 0 ? 'arrow-back' : 'menu'}}" on-tap="{{back}}"></core-icon-button></div>
+        </section>
+      </template>
+<!--       <section vertical layout hash='#0'>
+
+        <div id="container" flex horizontal wrap around-justified layout hero-p>
+        <div></div>
+            <div></div>
+                <div></div>
+                    <div></div>
+                        <div></div>
+                            <div></div>
+                                <div></div>
+                                    <div></div>
+                                        <div></div>
+                                            <div></div>
+                                                <div></div>
+            <div class="card" vertical center center-justified layout hero-id="0-full" hero on-tap="{{selectView}}"><span cross-fade>{{item}}</span></div>
         </div>
-      </core-header-panel>
-    </core-drawer-panel>
+
+      </section>
+
+      <section vertical layout hash="#0/full">
+          <div class="view" flex vertical center center-justified layout hero-id="0-full" hero><span cross-fade>{{item}}</span></div>
+      </section> -->
+
+    </core-animated-pages>
+    </div>
+<!-- layout vertical center-center -->
+<!-- <div id="awesomeContent" class="content">
+  <core-animated-pages  id='allPages' valueattr='hash' transitions="{{sliding}} hero-transition cross-fade">
+    <template repeat="{{page in pages}}">
+    <template repeat="{{page.subpages as subpage}}">
+      <section id='{{ subpage.id}}' hash="#{{page.label}}/{{subpage.label}}">
+        <div id="content-{{ subpage.id }}" cross-fade?="{{ full === true}}"></div>
+        <footer-element id="footer-{{ subpage.id }}" narrow="{{ narrow }}" cross-fade?="{{ full === true}}"></footer-element>
+      </section>
+
+      <section id='{{subpage.id}}-full' hash="#{{page.label}}/{{subpage.label}}/full" layout vertical center-center>
+
+        <div flex vertical center center-justified layout hero-id="hero-{{subpage.id}}" hero  class='yellow' >
+          <div cross-fade>
+            Hello you {{ subpage.id }}!!
+          </div>
+        </div>
+      </section>
+    </template>
   </template>
+</core-animated-pages>
+</div> -->
+</core-header-panel>
+</core-drawer-panel>
+</template>
 
 <script>
   Polymer('app-element', {
@@ -192,14 +246,12 @@ window.console.log('scrolling...');
         this.updateCoreHeaderPanelStyle();
       },
       routeChanged: function(oldValue, newValue){
-
-        // default route is the first page, first subpage
+        return;
         if(this.route == null || this.route == ''){
 
           this.route = this.pages[0].id + '/' + this.pages[0].subpages[0].label;
         }
 
-        // set previous, next and current page
         var splittedRoute = newValue.split('/');
 
         // get previous and next pages as well
@@ -211,7 +263,7 @@ window.console.log('scrolling...');
           if(this.pages[i].id === splittedRoute[0]){
             // set color of the header
             var page = this.pages[i];
-            // this.$.pageToolbar.style.backgroundColor = page.color;
+            this.$.pageToolbar.style.backgroundColor = page.color;
             for(var j=0; j<page.subpages.length; j++){
               if(page.subpages[j].label === splittedRoute[1]){
                 // find previous
@@ -249,7 +301,7 @@ window.console.log('scrolling...');
           }
         }
 
-        this.previouspage = {
+        this.previousPage = {
           'section': splittedRoute[0],
           'sectionIndex': prev[0],
           'subsection': splittedRoute[1],
@@ -257,7 +309,7 @@ window.console.log('scrolling...');
           'id': splittedRoute[0] + '-' + splittedRoute[1] 
         };
 
-        this.nextpage = {
+        this.nextPage = {
           'section': splittedRoute[0],
           'sectionIndex': next[0],
           'subsection': splittedRoute[1],
@@ -265,7 +317,6 @@ window.console.log('scrolling...');
           'id': splittedRoute[0] + '-' + splittedRoute[1] 
         };
 
-        // update current page (it will trigged)
         this.page = {
           'section': splittedRoute[0],
           'sectionIndex': cur[0],
@@ -277,57 +328,51 @@ window.console.log('scrolling...');
 
       },
       pageChanged: function(){
-        // current page was updated!
-
-        // UPDATE NAVIGATION PANEL
-        // select right in the navigation panel
+        return;
+        window.console.log(this.page.url);
+        // select right page (core-selector, find with id-core-submenu)
         if(this.$['iam-core-menu'].selected != this.page.sectionIndex){
           this.$['iam-core-menu'].selected = this.page.sectionIndex;
         }
         this.$[this.page.section + '-core-submenu'].selected = 2*this.page.subsectionIndex;
 
-        // UPDATE TOOLBAR
         // set title
-        //this.$.myPage.innerHTML = this.page.section;
-        //this.$.mySubpage.innerHTML = this.page.subsection;
-        // set color
-
-
-        this.previousfooter = {
-          color: this.pages[this.previouspage.sectionIndex].color,
-          target: '#' + this.pages[this.previouspage.sectionIndex].id + '/' + this.pages[this.previouspage.sectionIndex].subpages[this.previouspage.subsectionIndex].label,
-          label: this.pages[this.previouspage.sectionIndex].subpages[this.previouspage.subsectionIndex].label
+        this.$.myPage.innerHTML = this.page.section;
+        this.$.mySubpage.innerHTML = this.page.subsection;
+        var prevFooter = {
+          color: this.pages[this.previousPage.sectionIndex].color,
+          target: '#' + this.pages[this.previousPage.sectionIndex].id + '/' + this.pages[this.previousPage.sectionIndex].subpages[this.previousPage.subsectionIndex].label,
+          label: this.pages[this.previousPage.sectionIndex].subpages[this.previousPage.subsectionIndex].label
         };
-        // this.$['footer-' + this.page.id].previous = prevFooter;
+        this.$['footer-' + this.page.id].previous = prevFooter;
 
-        this.nextfooter = {
-          color: this.pages[this.nextpage.sectionIndex].color,
-          target: '#' + this.pages[this.nextpage.sectionIndex].id + '/' + this.pages[this.nextpage.sectionIndex].subpages[this.nextpage.subsectionIndex].label,
-          label: this.pages[this.nextpage.sectionIndex].subpages[this.nextpage.subsectionIndex].label
+        var nextFooter = {
+          color: this.pages[this.nextPage.sectionIndex].color,
+          target: '#' + this.pages[this.nextPage.sectionIndex].id + '/' + this.pages[this.nextPage.sectionIndex].subpages[this.nextPage.subsectionIndex].label,
+          label: this.pages[this.nextPage.sectionIndex].subpages[this.nextPage.subsectionIndex].label
         };
+        this.$['footer-' + this.page.id].next = nextFooter;
 
-        // this.$['footer-' + this.page.id].next = nextFooter;
-
-      // load page if not already loaded
       if(!this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].appended){
         var node = document.createElement(this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].element);
-        // node.bind('full', new PathObserver(this, 'full'));
-        node.bind('page', new PathObserver(this, 'page'));
-        node.bind('previouspage', new PathObserver(this, 'previousfooter'));
-        node.bind('nextpage', new PathObserver(this, 'nextfooter'));
+        node.bind('full', new PathObserver(this, 'full'));
+        node.bind('fulldata', new PathObserver(this, 'fulldata'));
 
-        this.$[this.page.id].appendChild(node);
+        this.$['content-' + this.page.id].appendChild(node);
         this.pages[this.page.sectionIndex].subpages[this.page.subsectionIndex].appended = true;
       }
 
-      
-      // SCROLL TO TOP
+      window.console.log('reset scrollTop');
       this.$.waterFallTall.shadowRoot.getElementById('mainContainer').scrollTop = 0;
 
-      // TRIGGER ANIMATION
-      window.console.log(this.$.pages);
-      this.$.pages.selected = '#' + this.page.id;
-      window.console.log(this.$.pages.selected);
+      // select right page to trigger transition
+      this.sliding = 'slide-from-right';
+      if(this.firstLoad){
+        this.firstLoad = false;
+        this.sliding = '';
+      }
+      
+      this.$.allPages.selected = '#' + this.page.section + '/' + this.page.subsection;
       }
 });
 </script>

@@ -1,0 +1,60 @@
+<polymer-element name="highlight-element" attributes="full fulldata">
+<template>
+  <link rel="stylesheet" href="highlight.css"> 
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <div id='container' style=''>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+            <div  id='0' class='box yellow' on-tap="{{goFull}}" hero>
+    NICOLAS RANNOU
+    </div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+                    <div  id='1' class='box yellow' on-tap="{{goFull}}" hero>
+    ADIRANE GARAIZAR
+    </div>
+        <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+        <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+        <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+    <div>HIGHLIGHT!!!!!!!!</div>
+  </div>
+
+</template>
+
+<script>
+  Polymer('highlight-element', {
+    previousid: '',
+    goFull: function(event, detail, sender){
+        if(typeof(this.$[this.previousid]) !== 'undefined'){
+            this.$[this.previousid].removeAttribute('hero-id');
+        }
+        
+        this.previousid = sender.id;
+        window.console.log(this.previousid);
+        this.$[this.previousid].setAttribute('hero-id', 'hero-highlights-2014');
+        window.console.log(sender);
+        // add hero id here?
+        this.full = true;
+        this.fulldata = {title: 'Nicolas Rannou',
+                         firstname: 'Nicolas',
+                         lastname: 'Rannou',
+                         phone: '617-832-5709'};
+        window.console.log('inside! ' + this.full);
+        window.console.log(this.fulldata);
+    }
+  });
+</script>
+</polymer-element>

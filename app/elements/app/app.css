@@ -3,6 +3,54 @@ font-family: "RobotoDraft","Roboto",sans-serif;
 -webkit-font-smoothing: antialiased;
 }
 
+    .toolbar {
+      background-color: steelblue;
+    }
+
+    #container {
+      overflow: auto;
+    }
+
+    .card {
+      position: relative;
+      height: 150px;
+      width: 150px;
+      font-size: 50px;
+      margin: 8px;
+      background-color: tomato;
+      border-radius: 4px;
+      cursor: default;
+    }
+
+    .view {
+      font-size: 250px;
+      background-color: tomato;
+    }
+
+[main]{
+  background-color: #F9F9F9;
+}
+
+[drawer]{
+  background-color: #FFFFFF;
+  box-shadow:1px 0 1px rgba(0,0,0,.1);
+}
+
+.core-header{
+  background-color:#2196F3;
+  color: #FFF;
+}
+
+#drawerToolbar{
+  background-color: #F9F9F9;
+  color: #000;
+}
+
+/*:host{
+font-family: "RobotoDraft","Roboto",sans-serif;
+-webkit-font-smoothing: antialiased;
+}
+
 [main]{
   background-color: #F9F9F9;
 }
@@ -87,4 +135,16 @@ background-color: tomato;
 
 .yellow{
 background-color: #FFC107;
+width:100%;
 }
+
+ .card {
+      position: relative;
+      height: 150px;
+      width: 150px;
+      font-size: 50px;
+      margin: 8px;
+      background-color: tomato;
+      border-radius: 4px;
+      cursor: default;
+    }*/

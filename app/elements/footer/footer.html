@@ -11,7 +11,7 @@
         </div>
         <div class='fluid previousText'>
           <div class='hint'>Previous</div>
-          <div class='label'>prev</div>
+          <div class='label'>previous</div>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
       <div class='fluid nextLayout' layout horizontal>
         <div class='fluid nextText'>
           <div class='hint'>Next</div>
-          <div class='label'>prev</div>
+          <div class='label'>next</div>
         </div>
         <div>
           <i class="fa fa-angle-right nextIcon"></i>
@@ -38,7 +38,9 @@
 
 <script>
   Polymer('footer-element', {
-    previousChanged: function(){
+    previous: {},
+    next : {},
+    previousChanged: function(before, after){
       this.$.previous.style.backgroundColor = this.previous.color;
       this.$.previous.href = this.previous.target;
       this.$.previous.getElementsByClassName('label')[0].innerHTML = this.previous.label;
