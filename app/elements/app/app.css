@@ -45,53 +45,32 @@ font-family: "RobotoDraft","Roboto",sans-serif;
   background-color: #F9F9F9;
   color: #000;
 }
-
-/*:host{
-font-family: "RobotoDraft","Roboto",sans-serif;
--webkit-font-smoothing: antialiased;
-}
-
-[main]{
-  background-color: #F9F9F9;
-}
-
-[drawer]{
-  background-color: #FFFFFF;
-  box-shadow:1px 0 1px rgba(0,0,0,.1);
-}
-
-.core-header{
-  background-color:#2196F3;
-  color: #FFF;
-}
-
-#drawerToolbar{
-  background-color: #F9F9F9;
-  color: #000;
-}
-
 #pageToolbar{
-	-moz-transition: background-color .4s, font .18s, height .18s ease;
-	-webkit-transition: background-color .4s,  font .18s, height .18s ease;
-	-o-transition: background-color .4s, font .18s, height  .18s ease;
-	transition: background-color .4s, font .18s, height .18s ease;
+  -moz-transition: background-color .4s, font .18s, height .18s ease;
+  -webkit-transition: background-color .4s,  font .18s, height .18s ease;
+  -o-transition: background-color .4s, font .18s, height  .18s ease;
+  transition: background-color .4s, font .18s, height .18s ease;
 }
 
 #pageToolbar .title{
-	transition: background-color .4s, font .18s, height .18s ease;
-	font-size: 1em;
+  transition: background-color .4s, font .18s, height .18s ease;
+  font-size: 1em;
 
 }
 
 #pageToolbar.tall .title{
-	transition: background-color .4s, font .18s, height .18s ease;
-	font-size: 2em;
+  transition: background-color .4s, font .18s, height .18s ease;
+  font-size: 2em;
 }
 
 core-toolbar{
-	background-color:#526E9C;
-	color:#fff
+  background-color:#526E9C;
+  color:#fff
 }
+/*
+
+
+
 
 core-animated-pages {
 	width: 85%;
@@ -122,29 +101,4 @@ section > div{
 #toolbarCloseIcon, #fullTitle {
   display:none;
 }
-
-.box{
-width: 150px;
-height:20px;
-margin: auto;
-}
-
-.red{
-background-color: tomato;
-}
-
-.yellow{
-background-color: #FFC107;
-width:100%;
-}
-
- .card {
-      position: relative;
-      height: 150px;
-      width: 150px;
-      font-size: 50px;
-      margin: 8px;
-      background-color: tomato;
-      border-radius: 4px;
-      cursor: default;
-    }*/
+*/

@@ -26,10 +26,21 @@
       <core-header-panel id='waterFallTall' main mode="waterfall-tall" on-scroll="{{scrollHandler}}">
 
         <!-- Main toolbar -->
-        <core-toolbar id='coreTool' class="toolbar">
+<!--         <core-toolbar id='coreTool' class="toolbar">
           <core-icon-button icon="menu"></core-icon-button>
           <div flex>Stuff</div>
           <core-icon-button icon="more-vert"></core-icon-button>
+        </core-toolbar> -->
+        <core-toolbar id='pageToolbar' class="core-header">
+          <paper-icon-button id="toolbarMenuIcon" core-drawer-toggle icon="menu" on-tap="{{exitFull}}"></paper-icon-button>
+          <!-- <icon-transition core-drawer-toggle id="toolbarMenuIcon" color="#fff" shape="menu" on-tap="{{exitFull}}"></icon-transition> -->
+          <div class="bottom indent">
+            <div id='pageTitle' class='title'>
+              <span id='myPage'></span>
+              <i class="fa fa-angle-right"></i>
+              <span id='mySubpage'></span>
+            </div>
+          </div>
         </core-toolbar>
 
         <!-- Main page -->
@@ -81,6 +92,21 @@
             fulldata: {},
             firstLoad: true,
             items: [],
+            coretoolbar: {
+              color : 'red',
+              title : 'hello world',
+              refresh : -1
+            },
+            observe: {
+    'coretoolbar.refresh': 'coretoolbarChanged'
+  },
+            coretoolbarChanged : function(){
+              window.console.log('core toolbar changed!');
+              this.$.myPage.innerHTML = this.coretoolbar.title;
+              this.$.mySubpage.innerHTML = this.coretoolbar.title;
+              this.$.pageToolbar.style.backgroundColor = this.coretoolbar.color;
+            },
+
 scrollHandler : function(event, detail, sender){
   window.console.log(event);
   window.console.log(detail);
@@ -211,7 +237,6 @@ window.console.log('scrolling...');
           if(this.pages[i].id === splittedRoute[0]){
             // set color of the header
             var page = this.pages[i];
-            // this.$.pageToolbar.style.backgroundColor = page.color;
             for(var j=0; j<page.subpages.length; j++){
               if(page.subpages[j].label === splittedRoute[1]){
                 // find previous
@@ -267,6 +292,7 @@ window.console.log('scrolling...');
 
         // update current page (it will trigged)
         this.page = {
+          'color': this.pages[cur[0]].color,
           'section': splittedRoute[0],
           'sectionIndex': cur[0],
           'subsection': splittedRoute[1],
@@ -290,11 +316,11 @@ window.console.log('scrolling...');
         this.$[this.page.section + '-core-submenu'].selected = 2*this.page.subsectionIndex;
 
         // UPDATE TOOLBAR
-        // set title
-        //this.$.myPage.innerHTML = this.page.section;
-        //this.$.mySubpage.innerHTML = this.page.subsection;
-        // set color
-
+        // changed not called if only update property...
+        this.coretoolbar.title = this.page.section + ' > ' + this.page.subsection;
+        this.coretoolbar.color = this.page.color;
+        this.coretoolbar.refresh *= -1;
+        // this.coretoolbarChanged();
 
        // this.$['footer-' + this.page.id].next = nextFooter;
         this.previousfooter = {
@@ -315,9 +341,20 @@ window.console.log('scrolling...');
         this.$[this.page.id].appendChild(node);
 
         // binding - for the records
+        // path
         node.bind('fullmode', new PathObserver(this, 'fullmode'));
+        // narrow layout (phone, tablet)
+        node.bind('narrow', new PathObserver(this, 'narrow'));
+        // core toolbar, to update toolbar from page
+        // color
+        // mode
+        // title
+        // icon
+        // iconTarget
+        node.bind('coretoolbar', new PathObserver(this, 'coretoolbar'));
 
         // setup element
+        // no need of binding
         node.page = this.page;
         node.previouspage = this.previousfooter;
         node.nextpage = this.nextfooter;
