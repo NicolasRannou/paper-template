@@ -1,17 +1,42 @@
-<polymer-element name="introduction-element" attributes="page nextpage previouspage">
+<polymer-element name="introduction-element" attributes="page nextpage previouspage color">
 <template>
   <link rel="stylesheet" href="introduction.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <div layout horizontal wrap fit>
-    <div class='fullwidth'>HELLO MY FRIEND - INTRODUCTION</div>
+  <div id='container' layout horizontal wrap fit style="background-color : {{this.color}}">
 
-    <footer-element id="footerYo"></footer-element>
+             <core-scroll-header-panel condenses fit>
+
+    <core-toolbar class="tall">
+
+      <core-icon-button icon="arrow-back"></core-icon-button>
+      <div flex></div>
+      <core-icon-button icon="search"></core-icon-button>
+      <core-icon-button icon="more-vert"></core-icon-button>
+      <div class="bottom indent title">Title</div>
+
+    </core-toolbar>
+    <div style='min-height:100%' flex horizontal wrap around-justified layout>
+        <div class='fullwidth'>HELLO MY FRIEND - INTRODUCTION</div>
+         <footer-element id="footerYo"></footer-element>
+         </div>
+    </core-scroll-header-panel>
+
+
+
+
+
+   
   </div>
 
 </template>
 <script>
   Polymer('introduction-element', {
+    colorChanged : function(){
+      window.console.log('new page color: ' + this.color);
+      this.$.container.style.backgroundColor = this.color;
+      this.$.container.className += ' smooth';
+    },
     previouspageChanged : function(){
 this.$.footerYo.previous = this.previouspage;
     },

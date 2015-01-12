@@ -1,39 +1,103 @@
-<polymer-element name="highlight-element" attributes="page nextpage previouspage fullmode narrow">
+<polymer-element name="highlight-element" attributes="page nextpage previouspage fullmode narrow full color colorinit">
 <template>
   <link rel="stylesheet" href="highlight.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <div layout horizontal fit>
-        <core-animated-pages id="pages" flex on-core-animated-pages-transition-end="{{transitionend}}" transitions="cross-fade-all hero-transition">
+        <core-animated-pages id="pages" flex on-core-animated-pages-transition-end="{{transitionend}}" transitions="cross-fade hero-transition slice-up slide-down">
           <section vertical layout>
-            <div id="container" flex horizontal wrap around-justified layout hero-p>
+
+
+
+           <core-scroll-header-panel id='goshadow' noReveal condenses keepCondensedHeader fit>
+
+    <!-- <core-toolbar style="background-color: {{page.color}}"class="tall"> -->
+<core-toolbar class="tall">
+      <div flex></div>
+                      <template if="{{!items}}">
+<paper-spinner active></paper-spinner>
+          </template>
+
+    </core-toolbar>
+
+
+
+            <div id="container" flex horizontal wrap around-justified layout hero-p cross-fade>
+
+
+
+
               <template repeat="{{item in items}}">
-                <div class="card" vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || lastSelected === item + 1}}" on-tap="{{selectView}}"><span cross-fade>{{item}}</span></div>
+                <div cross-fade class="card" vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || lastSelected === item + 1}}" on-tap="{{selectView}}"><span cross-fade>{{item}}</span></div>
               </template>
-              <footer-element id="footerYo"></footer-element>
+              <footer-element cross-fade id="footerYo"></footer-element>
             </div>
+
+</core-scroll-header-panel>
+
+
           </section>
 
       <template repeat="{{item in items}}">
         <section vertical layout>
-          <div class="view" flex vertical center center-justified layout hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || $.pages.selected === 0}}"><span cross-fade>{{item}}</span>
-          <core-icon-button icon="{{$.pages.selected != 0 ? 'arrow-back' : 'menu'}}" on-tap="{{back}}"></core-icon-button>
+
+          <div class='view' flex vertical center center-justified layout cross-fade hero-id="item-{{item}}" hero?="{{$.pages.selected === item + 1 || $.pages.selected === 0}}">
+
+          <div>
+          <paper-icon-button icon="clear" title="clear" on-tap="{{back}}"></paper-icon-button>
+          </div>
+          
+          <span cross-fade>{{item}}</span>
           </div>
         </section>
       </template>
       </core-animated-pages>
       </div>
 
+<!-- GET THE DATA! -->
+      <polymer-jsonp auto url="https://spreadsheets.google.com/feeds/list/{{key}}/od6/public/values?alt=json-in-script&callback=" response="{{responseyaya}}"></polymer-jsonp>
+
 </template>
 
 <script>
   Polymer('highlight-element', {
-    items : [],
+    items : null,
+    key : '0Asu7h0aKnydhdHN6R2lCX1N4VlZ3dnB2ZHhLWWFZQ3c',
+    response : {},
+    page: {
+      color: ''
+    },
+    responseyayaChanged : function(){
+      if(this.responseyaya){
+        this.items = [];
+        for(var i = 0; i < this.responseyaya.feed.entry.length; i++){
+          this.items.push(i);
+        }
+
+        window.console.log(this.items);
+      }
+
+      window.console.log(this.responseyaya);
+      window.console.log('got something....! :)');
+      //         if(this.quality){
+          
+      //     for(var i = 0; i < this.quality.feed.entry.length; i++){
+    
+      //       if(this.quality.feed.entry[i].gsx$section.$t == 'schedule'){
+      //         this.$.calendar.innerHTML = this.quality.feed.entry[i].gsx$group.$t;
+      // } 
+
+      // if(this.quality.feed.entry[i].gsx$section.$t == 'mission'){
+      // this.$[this.quality.f
+
+
+    },
     ready: function(){
-        var count = 50;
-for (var i=0; i < count; i++) {
-        this.items.push(i);
-      };
+      this.$.goshadow.shadowRoot.getElementById('headerBg').style.backgroundColor = 'cyan';//this.page.color;
+//         var count = 50;
+// for (var i=0; i < count; i++) {
+//         this.items.push(i);
+//       };
     },
     fullmodeChanged : function(){
 
@@ -47,8 +111,18 @@ for (var i=0; i < count; i++) {
         }
         else{
             this.$.pages.selected = parseInt(this.fullmode[3]) + 1;
+            
         }
 
+    },
+    transitionend : function(){
+// if(this.fullmode.length < 3){
+//             this.full = false;
+//         }
+//         else{
+//             this.full = true;
+            
+//         }
     },
     previouspageChanged : function(){
 this.$.footerYo.previous = this.previouspage;

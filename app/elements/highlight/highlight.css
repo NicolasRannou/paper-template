@@ -10,6 +10,7 @@ background-color: #FFC107;
 
     #container {
       overflow: auto;
+      min-height:100%;
     }
 
     .card {
@@ -24,10 +25,47 @@ background-color: #FFC107;
     }
 
     .view {
-      font-size: 250px;
+      font-size: 50px;
       background-color: tomato;
     }
 
     #footerYo{
-      flex: 1 100%; 
+      flex: 1 100%;
+      align-self:flex-end;
     }
+
+    /* background for toolbar when it is at its full size */
+    core-scroll-header-panel::shadow #headerBg {
+      /*background-color: blue;*/
+    }
+
+    /* background for toolbar when it is condensed */
+    core-scroll-header-panel::shadow #condensedHeaderBg {
+      background-color: red;
+    }
+
+        core-toolbar {
+      color: #f1f1f1;
+      fill: #f1f1f1;
+      background-color: transparent;
+    }
+
+
+/*.view2{
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+    z-index:20;
+}
+
+    .view {
+      position: fixed !important;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index:20;
+    }
+    */

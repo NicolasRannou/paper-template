@@ -6,3 +6,9 @@
     .fullwidth{
       flex: 1 100%; 
     }
+
+    .smooth{
+  transition: background-color 1s, font .18s, height .18s ease;
+  font-size: 1em;
+
+}
