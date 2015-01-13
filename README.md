@@ -2,7 +2,7 @@ fnndsc.babymri.org
 ==================
 
 
-[![build status](https://travis-ci.org/FNNDSC/fnndsc.babymri.org.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc.babymri.org)
+[![build status](https://travis-ci.org/nicolasrannou/paper-template.svg?branch=master)](https://travis-ci.org/nicolasrannou/paper-template)
 
 ## Pre-requisite
 
