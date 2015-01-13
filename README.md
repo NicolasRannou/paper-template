@@ -13,7 +13,7 @@ paper-template
 * Clone the project:
 `git clone https://github.com/NicolasRannou/paper-template.git`
 * CD into it: 
-`cd fnndsc.babymri.org`
+`cd paper-template`
 * Install bower and grunt: 
 `npm install -g bower grunt-cli`
 * Install bower packages: 
