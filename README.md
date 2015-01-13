@@ -1,8 +1,8 @@
-fnndsc.babymri.org
+paper-template
 ==================
 
 
-[![build status](https://travis-ci.org/FNNDSC/fnndsc.babymri.org.svg?branch=master)](https://travis-ci.org/FNNDSC/fnndsc.babymri.org)
+[![build status](https://travis-ci.org/NicolasRannou/paper-template.svg?branch=master)](https://travis-ci.org/NicolasRannou/paper-template)
 
 ## Pre-requisite
 
@@ -11,9 +11,9 @@ fnndsc.babymri.org
 
 ## Setup
 * Clone the project:
-`git clone https://github.com/FNNDSC/fnndsc.babymri.org.git`
+`git clone https://github.com/NicolasRannou/paper-template.git`
 * CD into it: 
-`cd fnndsc.babymri.org`
+`cd paper-template`
 * Install bower and grunt: 
 `npm install -g bower grunt-cli`
 * Install bower packages: 
@@ -23,7 +23,8 @@ fnndsc.babymri.org
 * Start local server with auto update:
 `grunt server`
 
-
 ## Deployment
 * Package everything ready to be deployed:
 `grunt build`
+
+## Usage
