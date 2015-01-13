@@ -11,7 +11,7 @@ fnndsc.babymri.org
 
 ## Setup
 * Clone the project:
-`git clone https://github.com/FNNDSC/fnndsc.babymri.org.git`
+`git clone https://github.com/NicolasRannou/paper-template.git`
 * CD into it: 
 `cd fnndsc.babymri.org`
 * Install bower and grunt: 
