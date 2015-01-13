@@ -1,4 +1,4 @@
-fnndsc.babymri.org
+paper-template
 ==================
 
 
@@ -23,7 +23,8 @@ fnndsc.babymri.org
 * Start local server with auto update:
 `grunt server`
 
-
 ## Deployment
 * Package everything ready to be deployed:
 `grunt build`
+
+## Usage
