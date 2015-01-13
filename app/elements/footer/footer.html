@@ -7,7 +7,7 @@
     <a id='previous' class='nav fluid' href="" style="position:relative;">
     <div class='fluid previousLayout' layout horizontal>
         <div class="previousIcon">
-          <i class="fa fa-angle-left" style=''></i>
+          <core-icon icon="chevron-left"></core-icon>
         </div>
         <div class='fluid previousText'>
           <div class='hint'>Previous</div>
@@ -25,7 +25,7 @@
           <div class='label'>next</div>
         </div>
         <div>
-          <i class="fa fa-angle-right nextIcon"></i>
+          <core-icon icon="chevron-right"></core-icon>
         </div>
       </div>
 
@@ -54,12 +54,10 @@
       if(this.narrow){
         this.$.previous.getElementsByClassName('previousLayout')[0].classList.add('narrow');
         this.$.next.getElementsByClassName('nextLayout')[0].classList.add('narrow');
-//this.$.previousContainer.addClass();
       }
       else{
         this.$.previous.getElementsByClassName('previousLayout')[0].classList.remove('narrow');
         this.$.next.getElementsByClassName('nextLayout')[0].classList.remove('narrow');
-//this.$.previousContainer.removeClass();
       }
     }
   });

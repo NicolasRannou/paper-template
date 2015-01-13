@@ -1,4 +1,4 @@
-<polymer-element name="introduction-element" attributes="page nextpage previouspage color">
+<polymer-element name="introduction-element" attributes="page nextpage previouspage narrow color">
 <template>
   <link rel="stylesheet" href="introduction.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
     </core-toolbar>
     <div style='min-height:100%' flex horizontal wrap around-justified layout>
         <div class='fullwidth'>HELLO MY FRIEND - INTRODUCTION</div>
-         <footer-element id="footerYo"></footer-element>
+         <footer-element id="footerYo" narrow="{{narrow}}"></footer-element>
          </div>
     </core-scroll-header-panel>
 

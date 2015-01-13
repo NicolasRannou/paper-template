@@ -1,23 +1,51 @@
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Paper template application</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
 
-        <!-- build:js scripts/preload.js -->
-        <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
-        <!-- endbuild -->
+        <!-- Add to homescreen meta -->
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
 
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-        <!-- Place your HTML imports here -->
-        <link rel="import" href="elements.html">
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+        <!-- Add to homescreen for Internet Explorer -->
+        <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+        <meta name="msapplication-TileColor" content="#3F51B5">
+
+        <meta name="theme-color" content="#303F9F">
+
+        <!-- Conditionally load WC polyfills -->
+        <!-- Thanks to https://github.com/geelen/x-gif for the snippet -->
+        <script>
+            if ('registerElement' in document
+                && 'createShadowRoot' in HTMLElement.prototype
+                && 'import' in document.createElement('link')
+                && 'content' in document.createElement('template')) {
+                // We're using a browser with native WC support!
+            } else {
+                document.write('<script src="/bower_components/webcomponentsjs/webcomponents.js"><\/script>');
+            }
+        </script>
+
+        <!-- build:vulcanized /elements/elements.critical.vulcanized.html -->
+        <link rel="import" href="/elements/elements.critical.html">
+        <!-- endbuild-->
+
+        <!-- MY APP! -->
+        <link rel="import" href="/elements/app/app.html">
     </head>
     <body fullbleed layout vertical>
 
-        <app-element fullbleed vertical layout style='height:100%'></app-element>
+        <app-element fullbleed vertical layout></app-element>
 
         <script>
 /*        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

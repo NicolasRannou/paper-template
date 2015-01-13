@@ -1,4 +1,8 @@
-<polymer-element name="app-element">
+<!-- MY PAGES -->
+
+
+<!-- MY APP! -->
+<polymer-element name="app-element" attributes='chapters'>
 
   <template>
     <link rel="stylesheet" href="app.css"> 
@@ -50,12 +54,14 @@
         </div>
       </core-header-panel>
     </core-drawer-panel>
+
   </template>
 
 <script>
   Polymer('app-element', {
       // here we define the whole architecture of the website
-      // this is enough to have the right 'empty chapters'
+      // this shouldn't be there
+      // this is fnndsc specific
             chapters: [
               {id: 'home', label: 'home',
               style: {
@@ -264,6 +270,10 @@
         // select element
         this.$[this.page.chapterId + '-core-submenu'].selected = 2*this.page.pageIndex;
 
+        // update theme color
+        document.getElementsByName('theme-color')[0].setAttribute('content', this.page.style.color);
+        document.getElementsByName('msapplication-TileColor')[0].setAttribute('content', this.page.style.color);
+        
         // UPDATE MAIN TOOLBAR
         this.maintoolbar = {
           chapter : this.page.chapterLabel,
@@ -292,6 +302,9 @@
 
         // binding full mode to save history
         node.bind('route', new PathObserver(this, 'splittedroute'));
+        node.bind('narrow', new PathObserver(this, 'narrow'));
+
+        // attach element
         this.$[this.page.chapterId + '-' + this.page.id].appendChild(node);
 
         // setup element
