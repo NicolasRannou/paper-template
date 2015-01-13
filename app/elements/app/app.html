@@ -14,7 +14,7 @@
           <template repeat="{{chapters as chapter}}">
             <core-submenu id='{{chapter.id}}-core-submenu' icons='settings' label="{{chapter.label}}">
               <template repeat="{{chapter.pages as page}}">  
-                <core-item label="{{page.label}}"><a href="#{{chapter.label}}/{{page.label}}"></core-item>
+                <core-item label="{{page.label}}"><a href="#{{chapter.id}}/{{page.id}}"></core-item>
               </template>
             </core-submenu>
           </template>
@@ -41,8 +41,8 @@
           <core-animated-pages id="pages" valueattr='hash' flex transitions="slide-from-right">
             <template repeat="{{chapter in chapters}}">
               <template repeat="{{chapter.pages as page}}">
-                <section vertical layout hash="#{{ page.id }}">
-                  <div id="{{ page.id }}" flex horizontal wrap around-justified layout></div>
+                <section vertical layout hash="#{{ chapter.id }}-{{ page.id }}">
+                  <div id="{{ chapter.id }}-{{ page.id }}" flex horizontal wrap around-justified layout></div>
                 </section>
               </template>
             </template>
@@ -63,45 +63,99 @@
                 accent: '#1DE9B6'
               },
               pages: [
-                {id:'home-introduction', label: 'introduction', element: 'introduction-element', appended: false}
+                {id:'introduction', label: 'introduction', element: 'introduction-element', appended: false}
               ]},
-              {id: 'research', label: 'research',
+              {id: 'mri', label: 'mri',
               style: {
                 color: '#4CAF50',
                 accent: '#1DE9B6'
               },
               pages: [
-                {id:'research-introduction', label: 'introduction', element: 'introduction-element', appended: false},
-                {id:'research-mri', label: 'mri', element: 'introduction-element', appended: false},
-                {id:'research-nirs', label: 'nirs', element: 'introduction-element', appended: false},
-                {id:'research-meg', label: 'meg', element: 'introduction-element', appended: false}
+                {id:'introduction', label: 'introduction', element: 'introduction-element', appended: false},
+                {id:'members', label: 'members', element: 'introduction-element', appended: false},
+                {id:'contact', label: 'contact', element: 'introduction-element', appended: false},
+                {id:'studies', label: 'studies', element: 'introduction-element', appended: false}
               ]},
-              {id: 'highlights', label: 'highlights',
+              {id: 'meg', label: 'meg',
               style: {
-                color:'#FFC107',
+                color: '#E91E63',
                 accent: '#1DE9B6'
               },
               pages: [
-                {id:'highlights-introduction', label: 'introduction', element: 'introduction-element', appended: false},
-                {id:'highlights-2014', label: '2014', element: 'highlight-element', appended: false}
+                {id:'introduction', label: 'introduction', element: 'introduction-element', appended: false},
+                {id:'members', label: 'members', element: 'introduction-element', appended: false},
+                {id:'contact', label: 'contact', element: 'introduction-element', appended: false},
+                {id:'studies', label: 'studies', element: 'introduction-element', appended: false}
+              ]},
+              {id: 'nirs', label: 'nirs',
+              style: {
+                color: '#9C27B0',
+                accent: '#1DE9B6'
+              },
+              pages: [
+                {id:'introduction', label: 'introduction', element: 'introduction-element', appended: false},
+                {id:'members', label: 'members', element: 'introduction-element', appended: false},
+                {id:'contact', label: 'contact', element: 'introduction-element', appended: false},
+                {id:'studies', label: 'studies', element: 'introduction-element', appended: false}
+              ]},
+              {id: 'hpc', label: 'hpc',
+              style: {
+                color: '#F44336',
+                accent: '#1DE9B6'
+              },
+              pages: [
+                {id:'introduction', label: 'introduction', element: 'introduction-element', appended: false},
+                {id:'members', label: 'members', element: 'introduction-element', appended: false},
+                {id:'contact', label: 'contact', element: 'introduction-element', appended: false}
               ]},
               {id: 'softwares', label: 'softwares',
               style: {
-                color:'#FF5722',
+                color:'#607D8B',
+                accent: '#76FF03'
+              },
+              pages:[
+                {id:'introduction', label: 'introduction', element: 'introduction-element', appended: false},
+                {id:'hackers', label: 'hackers', element: 'introduction-element', appended: false}, 
+                {id:'chris', label: 'chris', element: 'introduction-element', appended: false},
+                {id:'xtk', label: 'xtk', element: 'introduction-element', appended: false},
+                {id:'medview', label: 'medview', element: 'introduction-element', appended: false},
+                {id:'slicedrop', label: 'slicedrop', element: 'introduction-element', appended: false},
+                {id:'crun', label: 'crun', element: 'introduction-element', appended: false},
+                {id:'more', label: 'more', element: 'introduction-element', appended: false}
+              ]},
+              {id: 'collaborators', label: 'collaborators',
+              style: {
+                color: '#8BC34A',
                 accent: '#1DE9B6'
               },
               pages:[
-                {id:'softwares-introduction', label: 'introduction', element: 'introduction-element', appended: false}, 
-                {id:'softwares-chris', label: 'chris', element: 'introduction-element', appended: false},
+                {id:'gaab', label: 'gaab', element: 'introduction-element', appended: false},
+                {id:'mgh', label: 'mgh', element:'introduction-element', appended: false},
+                {id:'alumni', label: 'alumni', element:'introduction-element', appended: false}
               ]},
-              {id: 'team', label: 'team',
+              {id: 'events', label: 'events',
               style: {
-                color: '#E91E63',accent: '#1DE9B6'
+                color: '#673AB7',
+                accent: '#1DE9B6'
               },
               pages:[
-                {id:'team-introduction', label: 'introduction', element: 'introduction-element', appended: false},
-                {id:'team-faculty', label: 'faculty', element:'introduction-element', appended: false}
+                {id:'calendar', label: 'calendar', element: 'introduction-element', appended: false},
+                {id:'2015', label: '2015', element: 'highlight-element', appended: false},
+                {id:'2014', label: '2014', element: 'highlight-element', appended: false},
+                {id:'2013', label: '2013', element: 'highlight-element', appended: false},
+                {id:'2012', label: '2012', element: 'highlight-element', appended: false},
+                {id:'2011', label: '2011', element: 'highlight-element', appended: false}
               ]},
+              {id: 'talks', label: 'talks',
+              style: {
+                color: '#FF5722',
+                accent: '#1DE9B6'
+              },
+              pages:[
+                {id:'live', label: 'live', element: 'introduction-element', appended: false},
+                {id:'fnndsc', label: 'fnndsc', element: 'highlight-element', appended: false},
+                {id:'unix', label: 'unix', element: 'highlight-element', appended: false}
+              ]}
             ],
             maintoolbar: {
               color : 'red',
@@ -117,7 +171,6 @@
 
         // default route is the first chapter, first page
         if(this.route == null || this.route == ''){
-
           this.route = this.chapters[0].id + '/' + this.chapters[0].pages[0].label;
         }
 
@@ -134,7 +187,7 @@
             // set color of the header
             var chapter = this.chapters[i];
             for(var j=0; j<chapter.pages.length; j++){
-              if(chapter.pages[j].label === splittedRoute[1]){
+              if(chapter.pages[j].id === splittedRoute[1]){
                 // find previous
                 if(j>0){
                   prev = [i, j-1];
@@ -188,11 +241,14 @@
 
         // current page
         // add some extra info
-        this.chapters[cur[0]].pages[cur[1]].chapter = this.chapters[cur[0]].label;
+        this.chapters[cur[0]].pages[cur[1]].chapterId = this.chapters[cur[0]].id;
+        this.chapters[cur[0]].pages[cur[1]].chapterLabel = this.chapters[cur[0]].label;
         this.chapters[cur[0]].pages[cur[1]].chapterIndex =  cur[0];
         this.chapters[cur[0]].pages[cur[1]].pageIndex =  cur[1];
         this.chapters[cur[0]].pages[cur[1]].style =  this.chapters[cur[0]].style;
         this.page = this.chapters[cur[0]].pages[cur[1]];
+
+        this.splittedroute = splittedRoute;
       },
       pageChanged: function(){
         // current page was updated!
@@ -202,11 +258,15 @@
         if(this.$['drawerMenu'].selected != this.page.chapterIndex){
           this.$['drawerMenu'].selected = this.page.chapterIndex;
         }
-        this.$[this.page.chapter + '-core-submenu'].selected = 2*this.page.pageIndex;
+
+        // set color of selected element in navigation
+        // this.$[this.page.chapterId + '-core-submenu'].shadowRoot.getElementById('mainContainer').scrollTop = 0;
+        // select element
+        this.$[this.page.chapterId + '-core-submenu'].selected = 2*this.page.pageIndex;
 
         // UPDATE MAIN TOOLBAR
         this.maintoolbar = {
-          chapter : this.page.chapter,
+          chapter : this.page.chapterLabel,
           page : this.page.label,
           color : this.page.style.color
         }
@@ -227,12 +287,12 @@
         };
 
       // load page if not already loaded
-      if(!this.chapters[this.page.chapterIndex].pages[this.page.pageIndex].appended){
+      if(!this.page.appended){
         var node = document.createElement(this.page.element);
 
-        // binding - for the records
-        // node.bind('full', new PathObserver(this, 'full'));
-        this.$[this.page.id].appendChild(node);
+        // binding full mode to save history
+        node.bind('route', new PathObserver(this, 'splittedroute'));
+        this.$[this.page.chapterId + '-' + this.page.id].appendChild(node);
 
         // setup element
         node.page = this.page;
@@ -243,11 +303,12 @@
         this.chapters[this.page.chapterIndex].pages[this.page.pageIndex].appended = true;
       }
 
-      // SCROLL TO TOP
+      // SCROLL TO TOP (for the records, access a shadow element)
       // this.$.waterFallTall.shadowRoot.getElementById('mainContainer').scrollTop = 0;
 
       // TRIGGER ANIMATION
-      this.$.pages.selected = '#' + this.page.id;
+      this.$.pages.selected = '#' + this.page.chapterId + '-' + this.page.id;
+
       }
 });
 </script>

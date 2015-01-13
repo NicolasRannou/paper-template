@@ -1,6 +1,6 @@
 :host{
-font-family: "RobotoDraft","Roboto",sans-serif;
--webkit-font-smoothing: antialiased;
+  font-family: "RobotoDraft","Roboto",sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 [main]{
@@ -8,6 +8,7 @@ font-family: "RobotoDraft","Roboto",sans-serif;
 }
 
 [drawer]{
+  font-size: 1em;
   background-color: #FFFFFF;
   box-shadow:1px 0 1px rgba(0,0,0,.1);
 }

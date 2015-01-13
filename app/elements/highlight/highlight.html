@@ -1,4 +1,4 @@
-<polymer-element name="highlight-element" attributes="page nextpage previouspage fullmode narrow full color colorinit">
+<polymer-element name="highlight-element" attributes="page nextpage previouspage route narrow full color colorinit">
 <template>
   <link rel="stylesheet" href="highlight.css"> 
   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -99,18 +99,19 @@
 //         this.items.push(i);
 //       };
     },
-    fullmodeChanged : function(){
+    routeChanged : function(){
 
-        if(! (this.fullmode[0] === 'highlights' && this.fullmode[1] === '2014' )){
+        // not right page, exit
+        if(! (this.route[0] === this.page.chapterId && this.route[1] === this.page.id )){
             return;
         }
-        window.console.log(this.fullmode);
-
-        if(this.fullmode.length < 3){
+        
+        // go :)
+        if(this.route.length < 3){
             this.back();
         }
         else{
-            this.$.pages.selected = parseInt(this.fullmode[3]) + 1;
+            this.$.pages.selected = parseInt(this.route[3]) + 1;
             
         }
 
@@ -135,7 +136,7 @@ this.$.footerYo.next = this.nextpage;
         var i = e.target.templateInstance.model.item;
         this.$.pages.selected = i+1;
         // save history...
-        window.location.href = '#highlights/2014/full/' + i;
+        window.location.href = '#' + this.page.chapterId + '/' + this.page.id + '/full/' + i;
         
       },
             back : function() {
@@ -144,7 +145,7 @@ this.$.footerYo.next = this.nextpage;
         this.lastSelected = this.$.pages.selected;
         this.$.pages.selected = 0;
         // save history...
-        window.location.href = '#highlights/2014';
+        window.location.href = '#' + this.page.chapterId + '/' + this.page.id;
       }
   });
 </script>
